@@ -2,7 +2,7 @@ name: Generate Snake Game
 
 on:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 0 * * *"  # 每天 UTC 0 点运行
   workflow_dispatch:
 
 jobs:
@@ -10,13 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Generate GitHub Snake
+
+      - name: Generate GitHub Snake Animation
         uses: Platane/snk@v3.3.0
         with:
-          github_user_name: TG-Twilight
+          github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+            dist/github-snake-ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
 
       - name: Push to output branch
         uses: crazy-max/ghaction-github-pages@v4
