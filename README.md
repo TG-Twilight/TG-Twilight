@@ -49,6 +49,15 @@ The SuperCowboy who lives forever in the sunset！
   <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/refs/heads/main/profile-contrib-snake/github-snake.svg" alt="GitHub Contribution Snake"/>
 </p>
 
+### 🎮 Tom Clancy's Rainbow Six Siege X - Jgager and Solis in Hotel
 <p align="center">
   <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/refs/heads/main/profile-contrib-snake/jager%2Csolis.webp" alt="Jager and Solis"/>
+</p>
+
+<p>
+  <img src="https://r6.zyc.su/api/icons?i=jager" width="96"/> ：Hey, Ash is up ahead, let's go take her out！
+</p>
+
+<p>
+  <img src="https://r6.zyc.su/api/icons?i=solis" width="96"/> ：Hurh？
 </p>
