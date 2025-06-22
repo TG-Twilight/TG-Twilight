@@ -55,9 +55,9 @@ The SuperCowboy who lives forever in the sunset！
 </p>
 
 <p>
-  <img src="https://r6.zyc.su/api/icons?i=jager" width="96"/> ：Hey, Ash is up ahead, let's go take her out！
+  <img src="https://r6.zyc.su/api/icons?i=jager" width="72"/> ：Hey, Ash is up ahead, let's go take her out！
 </p>
 
 <p>
-  <img src="https://r6.zyc.su/api/icons?i=solis" width="96"/> ：Hurh？
+  <img src="https://r6.zyc.su/api/icons?i=solis" width="72"/> ：Hurh？
 </p>
