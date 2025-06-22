@@ -48,3 +48,7 @@ The SuperCowboy who lives forever in the sunset！
 <p align="center">
   <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/refs/heads/main/profile-contrib-snake/github-snake.svg" alt="GitHub Contribution Snake"/>
 </p>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/refs/heads/main/profile-contrib-snake/jager%2Csolis.webp" alt="Jager and Solis"/>
+</p>
