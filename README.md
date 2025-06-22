@@ -5,13 +5,13 @@ The SuperCowboy who lives forever in the sunset！
 <div align="left">
 <a href="https://steamcommunity.com/id/SuperCowboy/" target="_blank">
   <img src="https://img.shields.io/badge/Steam-171a21?style=for-the-badge&logo=steam&logoColor=white" alt="Steam"/>
-</a>&nbsp;|&nbsp;
+</a>
 <a href="https://x.com/Simon_Twilight" target="_blank">
   <img src="https://img.shields.io/badge/X-black?style=for-the-badge&logo=x&logoColor=white" alt="X (Twitter)"/>
-</a>&nbsp;|&nbsp;
+</a>
 <a href="https://zyc.su/" target="_blank">
   <img src="https://img.shields.io/badge/Blog-orange?style=for-the-badge&logo=firefox-browser&logoColor=white" alt="个人主页"/>
-</a>&nbsp;|&nbsp;
+</a>
 <a href="https://afdian.com/a/AdsRule" target="_blank">
   <img src="https://img.shields.io/badge/%E8%B5%9E%E5%8A%A9%E6%88%91-ffd700?style=for-the-badge&logo=buy-me-a-coffee&logoColor=white&labelColor=ff9800" alt="赞助我"/>
 </a>
@@ -23,7 +23,7 @@ The SuperCowboy who lives forever in the sunset！
 
 ---
 
-### 🌟 Representative Projects
+### 🌟 Some Projects
 
 - [**AWAvenue-Ads-Rule**](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)  
   秋风广告规则：众多优秀广告规则的上游、开源社区中最棒的广告过滤器列表之一。  
@@ -37,7 +37,7 @@ The SuperCowboy who lives forever in the sunset！
 
 ---
 
-### 🎨 Artworks
+### 🎨 Graffiti
 
 - Pixiv: [Simon Twilight](https://www.pixiv.net/users/106832575)
 - My works:  
