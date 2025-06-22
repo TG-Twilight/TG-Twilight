@@ -26,14 +26,14 @@ The SuperCowboy who lives forever in the sunset！
 ### 🌟 Some Projects
 
 - [**AWAvenue-Ads-Rule**](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)  
-  秋风广告规则：众多优秀广告规则的上游、开源社区中最棒的广告过滤器列表之一。  
+  秋风广告规则是众多优秀广告规则的上游、开源社区中最棒的广告过滤器列表之一。  
 
 
 - [**R6-Operators-Icons**](https://github.com/TG-Twilight/R6-Operators-Icons)  
   向所有人在任何地方展示你喜爱的彩虹六号干员，轻松集成和自托管的 SVG 图标 API。
 
 - [**Starstruck**](https://github.com/TG-Twilight/Starstruck)  
-  玩具项目：一键统计某个仓库被哪些“显赫人物” Star 过，同时还能探索大佬们的影响力圈子。
+  玩具项目，一键统计某个仓库被哪些“显赫人物” Star 过，同时还能探索大佬们的影响力圈子。
 
 ---
 
