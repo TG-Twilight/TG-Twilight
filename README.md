@@ -27,9 +27,7 @@ The SuperCowboy who lives forever in the sunset！
 
 - [**AWAvenue-Ads-Rule**](https://github.com/TG-Twilight/AWAvenue-Ads-Rule)  
   秋风广告规则：众多优秀广告规则的上游、开源社区中最棒的广告过滤器列表之一。  
-  <a href="https://awavenue.top/" target="_blank">
-    <img src="https://img.shields.io/badge/官方网站-awavenue.top-blueviolet?style=flat-square&logo=windows95&logoColor=white" alt="广告规则官网"/>
-  </a>
+
 
 - [**R6-Operators-Icons**](https://github.com/TG-Twilight/R6-Operators-Icons)  
   向所有人在任何地方展示你喜爱的彩虹六号干员，轻松集成和自托管的 SVG 图标 API。
