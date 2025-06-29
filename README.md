@@ -12,7 +12,7 @@ The SuperCowboy who lives forever in the sunset！
 <a href="https://zyc.su/" target="_blank">
   <img src="https://img.shields.io/badge/Page-blue?style=for-the-badge&logo=firefox-browser&logoColor=white" alt="个人主页"/>
 </a>
-<a href="[https://zyc.su/](https://awads.cc)" target="_blank">
+<a href="https://awads.cc" target="_blank">
   <img src="https://img.shields.io/badge/Blog-red?style=for-the-badge&logo=firefox-browser&logoColor=white" alt="博客"/>
 </a>
 <a href="https://afdian.com/a/AdsRule" target="_blank">
