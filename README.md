@@ -23,7 +23,7 @@
 <a href="https://steamcommunity.com/id/SuperCowboy/" target="_blank"><img src="https://img.shields.io/badge/Steam-1B1123?style=for-the-badge&logo=steam&logoColor=FFD166" alt="Steam"/></a>
 <a href="https://x.com/Simon_Twilight" target="_blank"><img src="https://img.shields.io/badge/X-1B1123?style=for-the-badge&logo=x&logoColor=F3D9C4" alt="X"/></a>
 <a href="https://www.pixiv.net/users/106832575" target="_blank"><img src="https://img.shields.io/badge/Pixiv-FF5F6D?style=for-the-badge&logo=pixiv&logoColor=white" alt="Pixiv"/></a>
-<a href="https://zyc.su/" target="_blank"><img src="https://img.shields.io/badge/Homepage-7B4B94?style=for-the-badge&logo=firefoxbrowser&logoColor=white" alt="个人主页"/></a>
+<a href="https://me.awads.cc/" target="_blank"><img src="https://img.shields.io/badge/Homepage-7B4B94?style=for-the-badge&logo=firefoxbrowser&logoColor=white" alt="个人主页"/></a>
 <a href="https://awads.cc" target="_blank"><img src="https://img.shields.io/badge/Blog-D9464F?style=for-the-badge&logo=rss&logoColor=white" alt="博客"/></a>
 <a href="https://afdian.com/a/AdsRule" target="_blank"><img src="https://img.shields.io/badge/%E8%B5%9E%E5%8A%A9%E6%88%91-FF8C42?style=for-the-badge&logo=buymeacoffee&logoColor=1B1123" alt="赞助我"/></a>
 
@@ -38,7 +38,7 @@
 - 🧱 **在做** · 广告过滤规则 / Android 工具 / 顺手写的小玩具
 - 🌵 **常用** · `Shell` `TypeScript` `Python` `Go` `JavaScript`
 - 🎨 **不写码的时候** · 画画、打彩虹六号、扛着道具去漫展
-- 📮 **找我** · [zyc.su](https://zyc.su/) · [awads.cc](https://awads.cc) · [@Simon_Twilight](https://x.com/Simon_Twilight)
+- 📮 **找我** · [zyc.su](https://me.awads.cc/) · [awads.cc](https://awads.cc) · [@Simon_Twilight](https://x.com/Simon_Twilight)
 
 <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/divider.svg" width="100%" alt=""/>
 
