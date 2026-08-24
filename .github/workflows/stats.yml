@@ -1,0 +1,46 @@
+name: refresh stats cards
+
+on:
+  schedule:
+    - cron: "23 20 * * *"      # 每天 UTC 20:23 / 北京时间次日 04:23
+  workflow_dispatch:
+  push:
+    paths:
+      - "tools/make_cards.py"
+      - ".github/workflows/stats.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stats-cards
+  cancel-in-progress: false
+
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 纯标准库，没有 pip 依赖
+      - name: Render cards
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_USER: ${{ github.repository_owner }}
+        run: python tools/make_cards.py
+
+      - name: Commit & Push
+        run: |
+          git config user.name  github-actions
+          git config user.email github-actions@github.com
+          git add assets/stats-card.svg assets/langs-card.svg assets/pin-*.svg
+          if git diff --staged --quiet; then
+            echo "nothing changed"
+          else
+            git commit -m "chore: refresh stats cards"
+            git push
+          fi

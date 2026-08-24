@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 96" width="430" height="96" role="img" aria-label="Gamer-Skill-Icons — 15 stars">
+  <defs>
+    <linearGradient id="edgeP" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF8C42" stop-opacity=".85"/>
+      <stop offset="55%" stop-color="#FF5F6D" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#7B4B94" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="ruleP" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFD166" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#FF5F6D" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x=".9" y=".9" width="428.2" height="94.2" rx="12" fill="#1B1123" stroke="url(#edgeP)" stroke-width="1.8"/>
+  
+  <g transform="translate(20,21)"><g fill="none" stroke="#FF8C42" stroke-width="1.5" stroke-linejoin="round"><path d="M3 2.6h8.2a1.6 1.6 0 011.6 1.6v9.2H4.6A1.6 1.6 0 013 11.8z"/><path d="M3 11.4h9.8"/></g></g><text x="44" y="34" fill="#FFD166" font-family="'Segoe UI',Roboto,'Helvetica Neue',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="16" font-weight="600">Gamer-Skill-Icons</text><rect x="20" y="50" width="0" height="1.4" fill="url(#ruleP)"><animate attributeName="width" from="0" to="170" dur=".8s" begin=".15s" fill="freeze"/></rect><g opacity="0"><animate attributeName="opacity" from="0" to="1" dur=".5s" begin=".35s" fill="freeze"/><circle cx="24" cy="70" r="4.2" fill="#FF8C42"/><text x="34" y="74" fill="#9B8494" font-family="'Segoe UI',Roboto,'Helvetica Neue',Arial,'PingFang SC','Microsoft YaHei',sans-serif" font-size="11.5">TypeScript</text><g transform="translate(119,62) scale(0.8)"><path d="M8 1.4l2 4.1 4.5.7-3.3 3.2.8 4.5L8 11.8l-4 2.1.8-4.5L1.5 6.2 6 5.5z" fill="#9B8494"/></g><text x="137" y="74" fill="#F3D9C4" font-family="ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,'Liberation Mono',monospace" font-size="11.5">15</text><g transform="translate(174,62) scale(0.8)"><g fill="none" stroke="#9B8494" stroke-width="1.6" stroke-linecap="round"><circle cx="4" cy="3.8" r="2.1"/><circle cx="12" cy="3.8" r="2.1"/><circle cx="8" cy="12.6" r="2.1"/><path d="M4 5.9v1.4a2 2 0 002 2h4a2 2 0 002-2V5.9M8 9.3v1.2"/></g></g><text x="192" y="74" fill="#F3D9C4" font-family="ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,'Liberation Mono',monospace" font-size="11.5">1</text></g>
+</svg>

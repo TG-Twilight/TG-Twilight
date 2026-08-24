@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 18" width="1200" height="18" role="presentation">
+  <defs>
+    <linearGradient id="fadeIn" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#7B4B94" stop-opacity="0.15"/>
+      <stop offset="55%"  stop-color="#FF5F6D" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#FF8C42" stop-opacity="0.95"/>
+    </linearGradient>
+    <linearGradient id="fadeOut" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#FF8C42" stop-opacity="0.95"/>
+      <stop offset="45%"  stop-color="#FFD166" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#7B4B94" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0"   y="8" width="552" height="2" fill="url(#fadeIn)"/>
+  <rect x="648" y="8" width="552" height="2" fill="url(#fadeOut)"/>
+
+  <g fill="#FF8C42">
+    <path d="M578,6 L581,9 L578,12 L575,9 Z" opacity=".85"/>
+    <path d="M622,6 L625,9 L622,12 L619,9 Z" opacity=".85"/>
+  </g>
+  <path d="M600,2.5 L606.5,9 L600,15.5 L593.5,9 Z" fill="#FFD166">
+    <animate attributeName="opacity" values="1;0.45;1" dur="3.6s" repeatCount="indefinite"/>
+  </path>
+</svg>

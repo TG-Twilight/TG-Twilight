@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+
+# cos 原图只留在本地，仓库里只放 tools/make_cos_assets.py 导出的 webp
+Alastor.Cos/*.jpg
