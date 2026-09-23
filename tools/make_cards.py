@@ -2,8 +2,9 @@
 """自托管的 GitHub 统计卡生成器 —— 配色跟 assets/banner.svg 完全一致。
 
 不依赖 github-readme-stats 之类的公共实例（它们经常限流或直接下线），
-只调 GitHub 公开 REST API，把结果画成 assets/stats-card.svg 与
-assets/langs-card.svg，由 .github/workflows/stats.yml 每天跑一次并提交。
+只调 GitHub 公开 REST API，把结果画成 assets/stats-strip.svg（统计长条）、
+assets/feature-*.svg（招牌横幅）与 assets/pin-*.svg（仓库卡），
+由 .github/workflows/stats.yml 每天跑一次并提交。
 
     python tools/make_cards.py            # 匿名调用，60 次/小时，够用
     GITHUB_TOKEN=xxx python tools/make_cards.py   # CI 里走 token，额度更高
@@ -188,75 +189,6 @@ def shell(w, h, title, body, uid, label=None):
 '''
 
 
-def stats_card(d):
-    rows = [
-        ("star",   "Total Stars Earned", d["stars"]),
-        ("commit", "Total Commits",      d["commits"]),
-        ("fork",   "Total Forks",        d["forks"]),
-        ("pr",     "Pull Requests",      d["prs"]),
-        ("issue",  "Issues Opened",      d["issues"]),
-        ("user",   "Followers",          d["followers"]),
-    ]
-    W, COLW = 470, 196
-    out = []
-    for i, (ic, label, value) in enumerate(rows):
-        cx = 24 + (i % 2) * 226
-        cy = 66 + (i // 2) * 40
-        delay = 0.25 + i * 0.09
-        out.append(
-            f'<g opacity="0">'
-            f'<animate attributeName="opacity" from="0" to="1" dur=".5s" begin="{delay:.2f}s" fill="freeze"/>'
-            f'{icon(ic, cx, cy)}'
-            f'<text x="{cx + 26}" y="{cy + 12.5}" fill="{INK}" font-family="{SANS}" font-size="13">{label}</text>'
-            f'<text x="{cx + COLW}" y="{cy + 12.5}" fill="{GOLD}" font-family="{MONO}" font-size="14" '
-            f'font-weight="600" text-anchor="end">{num(value)}</text>'
-            f'</g>')
-    return shell(W, 200, "%s &#183; GitHub" % d["name"], "\n  ".join(out), "S")
-
-
-def langs_card(d):
-    total = sum(d["langs"].values())
-    if not total:
-        return shell(400, 200, "Top Languages",
-                     f'<text x="24" y="110" fill="{MUTED}" font-family="{SANS}" font-size="13">no data</text>', "L")
-
-    top = d["langs"].most_common(6)
-    rest = total - sum(v for _, v in top)
-    if rest / total >= 0.001:            # 低于 0.1% 的尾巴不值得占一行
-        top.append(("Other", rest))
-
-    W, BX, BY, BW, BH = 400, 24, 58, 352, 11
-    seg, x = [], BX
-    for i, (name, size) in enumerate(top):
-        w = BW * size / total
-        seg.append(f'<rect x="{x:.1f}" y="{BY}" width="0" height="{BH}" fill="{RAMP[i % len(RAMP)]}">'
-                   f'<animate attributeName="width" from="0" to="{w:.1f}" dur=".9s" '
-                   f'begin="{0.2 + i * 0.08:.2f}s" fill="freeze"/></rect>')
-        x += w
-    bar = (f'<clipPath id="barclip"><rect x="{BX}" y="{BY}" width="{BW}" height="{BH}" rx="{BH / 2}"/></clipPath>'
-           f'<rect x="{BX}" y="{BY}" width="{BW}" height="{BH}" rx="{BH / 2}" fill="#2A1B33"/>'
-           f'<g clip-path="url(#barclip)">{"".join(seg)}</g>')
-
-    legend = []
-    rows = (len(top) + 1) // 2           # 图例行高按行数摊开，底部不留空档
-    gap = (184 - 86) / rows
-    for i, (name, size) in enumerate(top):
-        cx = 24 + (i % 2) * 184
-        cy = 86 + gap * (i // 2) + gap / 2 + 4.5
-        pct = size / total * 100
-        label = name if len(name) <= 20 else name[:19] + "…"
-        legend.append(
-            f'<g opacity="0">'
-            f'<animate attributeName="opacity" from="0" to="1" dur=".5s" begin="{0.5 + i * 0.07:.2f}s" fill="freeze"/>'
-            f'<circle cx="{cx + 4}" cy="{cy - 4:.1f}" r="4.2" fill="{RAMP[i % len(RAMP)]}"/>'
-            f'<text x="{cx + 16}" y="{cy:.1f}" fill="{INK}" font-family="{SANS}" font-size="12.5">{label}</text>'
-            f'<text x="{cx + 168}" y="{cy:.1f}" fill="{MUTED}" font-family="{MONO}" font-size="11.5" '
-            f'text-anchor="end">{pct:.1f}%</text>'
-            f'</g>')
-
-    return shell(W, 200, "Top Languages", bar + "\n  " + "\n  ".join(legend), "L")
-
-
 def fetch_contributions(created_year, this_year):
     """从公开的贡献日历页面逐年抓 date -> count（不走 API，不吃 60 次/小时的额度）。"""
     days = {}
@@ -330,48 +262,81 @@ def summarise(days):
     }
 
 
-def contrib_card(c):
-    W, H = 880, 190
+LANG_ALIAS = {"Adblock Filter List": "Adblock"}
+
+
+def strip_card(d):
+    """一条 880×124 的细长统计条：关键数字 | 语言比例 | 逐年贡献。刻意做得低调。"""
+    W, H = 880, 124
     out = []
 
-    # 左：总量
-    out.append(f'<text x="24" y="102" fill="{GOLD}" font-family="{MONO}" font-size="42" '
-               f'font-weight="700" opacity="0">{num(c["total"])}'
-               f'<animate attributeName="opacity" from="0" to="1" dur=".7s" begin=".25s" fill="freeze"/></text>')
-    out.append(f'<text x="26" y="126" fill="{INK}" font-family="{SANS}" font-size="12" '
-               f'font-weight="600" letter-spacing="1.1">TOTAL CONTRIBUTIONS</text>')
-    out.append(f'<text x="26" y="145" fill="{MUTED}" font-family="{MONO}" font-size="10.5">{c["range"]}</text>')
-    out.append(f'<text x="26" y="164" fill="{MUTED}" font-family="{MONO}" font-size="10.5">'
-               f'{c["active"]} active days &#183; best {c["best_n"]} on {c["best_day"]}</text>')
+    def caption(x, text, anchor="start", color=MUTED):
+        return (f'<text x="{x}" y="30" fill="{color}" font-family="{MONO}" font-size="10" '
+                f'letter-spacing="1.6" text-anchor="{anchor}">{text}</text>')
 
-    out.append(f'<rect x="284" y="56" width="1" height="{H - 100}" fill="{ORANGE}" opacity=".22"/>')
+    def fade(i, body):
+        return (f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur=".5s" '
+                f'begin="{0.15 + i * 0.05:.2f}s" fill="freeze"/>{body}</g>')
 
-    # 右：逐年的贡献节奏
-    BX, BR, BASE, TOP = 314, W - 24, 142, 62
-    peak = max(n for _, n, _ in c["years"]) or 1
-    slot = (BR - BX) / len(c["years"])
-    bw = min(78, slot - 22)
-    for i, (year, n, partial) in enumerate(c["years"]):
-        h = max(2.5, (BASE - TOP) * n / peak)
-        x = BX + slot * i + (slot - bw) / 2
-        fill = GOLD if n == peak else ORANGE
-        out.append(f'<rect x="{x:.1f}" y="{BASE - h:.1f}" width="{bw:.1f}" height="0" rx="3" '
-                   f'fill="{fill}" opacity=".9">'
-                   f'<animate attributeName="height" from="0" to="{h:.1f}" dur=".7s" '
-                   f'begin="{0.3 + i * 0.05:.2f}s" fill="freeze"/></rect>')
-        if n:
-            out.append(f'<text x="{x + bw / 2:.1f}" y="{BASE - h - 6:.1f}" fill="{MUTED}" '
-                       f'font-family="{MONO}" font-size="11" text-anchor="middle" opacity="0">{n}'
-                       f'<animate attributeName="opacity" from="0" to="1" dur=".4s" '
-                       f'begin="{0.85 + i * 0.05:.2f}s" fill="freeze"/></text>')
-        out.append(f'<text x="{x + bw / 2:.1f}" y="{BASE + 15:.1f}" fill="{MUTED}" '
-                   f'font-family="{MONO}" font-size="10.5" text-anchor="middle">'
-                   f'{year}{"*" if partial else ""}</text>')
-    out.append(f'<rect x="{BX}" y="{BASE + 1}" width="{BR - BX}" height="1" fill="{ORANGE}" opacity=".25"/>')
-    out.append(f'<text x="{BR}" y="{H - 18}" fill="{MUTED}" font-family="{SANS}" font-size="10.5" '
-               f'text-anchor="end">by year &#183; * year to date</text>')
+    # ① 关键数字，3 × 2
+    k = d["contrib"] or {}
+    metrics = [("STARS", d["stars"]), ("COMMITS", d["commits"]), ("CONTRIBS", k.get("total")),
+               ("PRS", d["prs"]), ("ISSUES", d["issues"]), ("FOLLOWERS", d["followers"])]
+    out.append(caption(24, "GITHUB"))
+    for i, (label, value) in enumerate(metrics):
+        x, y = 24 + (i % 3) * 96, 60 + (i // 3) * 38
+        out.append(fade(i, f'<text x="{x}" y="{y}" fill="{GOLD}" font-family="{MONO}" font-size="15" '
+                           f'font-weight="600">{num(value)}</text>'
+                           f'<text x="{x}" y="{y + 14}" fill="{MUTED}" font-family="{SANS}" '
+                           f'font-size="9.5" letter-spacing=".8">{label}</text>'))
 
-    return shell(W, H, "Contributions", "".join(out), "K", label="contribution rhythm")
+    for x in (316, 624):
+        out.append(f'<rect x="{x}" y="22" width="1" height="{H - 44}" fill="{ORANGE}" opacity=".2"/>')
+
+    # ② 语言比例
+    BX, BY, BW, BH = 340, 42, 260, 7
+    total = sum(d["langs"].values())
+    out.append(caption(BX, "LANGUAGES"))
+    if total:
+        top = d["langs"].most_common(5)
+        rest = total - sum(v for _, v in top)
+        if rest / total >= 0.001:
+            top.append(("Other", rest))
+        seg, x = [], BX
+        for i, (_, size) in enumerate(top):
+            w = BW * size / total
+            seg.append(f'<rect x="{x:.1f}" y="{BY}" width="{w:.1f}" height="{BH}" fill="{RAMP[i % len(RAMP)]}"/>')
+            x += w
+        out.append(f'<clipPath id="barclipT"><rect x="{BX}" y="{BY}" width="{BW}" height="{BH}" rx="{BH / 2}"/></clipPath>'
+                   f'<g clip-path="url(#barclipT)">{"".join(seg)}</g>')
+        for i, (name, size) in enumerate(top):
+            cx, cy = BX + (i % 2) * 136, 70 + (i // 2) * 18
+            out.append(fade(i, f'<circle cx="{cx + 3}" cy="{cy - 3.5}" r="3" fill="{RAMP[i % len(RAMP)]}"/>'
+                               f'<text x="{cx + 11}" y="{cy}" fill="{INK}" font-family="{SANS}" '
+                               f'font-size="11">{esc(LANG_ALIAS.get(name, name))}</text>'
+                               f'<text x="{cx + 122}" y="{cy}" fill="{MUTED}" font-family="{MONO}" '
+                               f'font-size="10" text-anchor="end">{size / total * 100:.1f}%</text>'))
+
+    # ③ 逐年贡献
+    L, R, BASE, TOP = 648, 856, 94, 44
+    out.append(caption(L, "CONTRIBUTIONS"))
+    if k:
+        out.append(caption(R, "%s total" % num(k["total"]), anchor="end", color=GOLD))
+        years = k["years"]
+        peak = max(n for _, n, _ in years) or 1
+        slot = (R - L) / len(years)
+        bw = min(24, slot - 14)
+        for i, (year, n, partial) in enumerate(years):
+            h = max(2, (BASE - TOP) * n / peak)
+            x = L + slot * i + (slot - bw) / 2
+            out.append(f'<rect x="{x:.1f}" y="{BASE - h:.1f}" width="{bw:.1f}" height="{h:.1f}" rx="2" '
+                       f'fill="{GOLD if n == peak else ORANGE}" opacity=".85">'
+                       f'<title>{year}: {n}</title></rect>'
+                       f'<text x="{x + bw / 2:.1f}" y="{BASE + 14}" fill="{MUTED}" font-family="{MONO}" '
+                       f'font-size="9.5" text-anchor="middle">{year}{"*" if partial else ""}</text>')
+        out.append(f'<rect x="{L}" y="{BASE + 1}" width="{R - L}" height="1" fill="{ORANGE}" opacity=".2"/>')
+
+    return shell(W, H, "", "\n  ".join(out), "T", label="GitHub stats")
 
 
 def pin_card(r):
@@ -493,9 +458,7 @@ if __name__ == "__main__":
                  % (len(data["pins"]), len(PINS)))
 
     os.makedirs(OUT, exist_ok=True)
-    cards = [("stats-card.svg", stats_card(data)), ("langs-card.svg", langs_card(data))]
-    if data["contrib"]:
-        cards.append(("contrib-card.svg", contrib_card(data["contrib"])))
+    cards = [("stats-strip.svg", strip_card(data))]
     cards.append(("feature-%s.svg" % FEATURE, feature_card(data["feature"])))
     cards += [("pin-%s.svg" % r["name"], pin_card(r)) for r in data["pins"]]
     for fname, svg in cards:

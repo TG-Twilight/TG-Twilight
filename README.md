@@ -1,14 +1,14 @@
 <!--
   ─────────────────────────────────────────────────────────────
    这个 README 的图片几乎全是自托管的，不看第三方服务脸色：
-     assets/banner.svg   落日横幅，手写 SVG（改文案记得同步 textLength）
-     assets/divider.svg  分隔线
-     assets/*-card.svg   统计卡 / 语言卡 / 仓库卡
-                         → tools/make_cards.py 生成
-                         → .github/workflows/stats.yml 每天自动刷新
-     Alastor.Cos/*.webp  cos 主图（本地原图裁出，原图走 .gitignore）
-                         与两个角色头像（现拉官方立绘裁圆）
-                         → tools/make_cos_assets.py
+     assets/banner.svg       落日横幅，手写 SVG（改文案记得同步 textLength）
+     assets/divider.svg      分隔线
+     assets/stats-strip.svg  统计长条 / 招牌横幅 / 仓库卡
+     assets/feature-*.svg    → tools/make_cards.py 生成
+     assets/pin-*.svg        → .github/workflows/stats.yml 每天自动刷新
+     Alastor.Cos/*.webp      cos 主图（本地原图裁出，原图走 .gitignore）
+                             与两个角色头像（现拉官方立绘裁圆）
+                             → tools/make_cos_assets.py
    仅剩的外部依赖：shields.io 徽章、count.getloli.com 计数器、
    r6.awads.cc 图标（你自己的服务）。
   ─────────────────────────────────────────────────────────────
@@ -133,24 +133,17 @@
 
 ## 📊 Stats
 
-<div align="center">
+<a href="https://github.com/TG-Twilight?tab=repositories"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/stats-strip.svg" width="100%" alt="GitHub Stats"/></a>
 
-<img height="200" src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/stats-card.svg" alt="GitHub Stats"/>
-<img height="200" src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/langs-card.svg" alt="Top Languages"/>
-
+<details>
+<summary><sub>🐍 放条蛇出来吃贡献格子</sub></summary>
 <br/>
-
-<img width="880" src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/contrib-card.svg" alt="Contributions by year"/>
-
-<br/><br/>
-
 <picture>
   <source media="(prefers-color-scheme: dark)"  srcset="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/profile-contrib-snake/github-snake-dark.svg"/>
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/profile-contrib-snake/github-snake.svg"/>
   <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/profile-contrib-snake/github-snake.svg" alt="GitHub Contribution Snake" width="100%"/>
 </picture>
-
-</div>
+</details>
 
 <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/divider.svg" width="100%" alt=""/>
 
