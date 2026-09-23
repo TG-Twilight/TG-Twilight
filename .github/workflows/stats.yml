@@ -37,7 +37,7 @@ jobs:
         run: |
           git config user.name  github-actions
           git config user.email github-actions@github.com
-          git add assets/stats-card.svg assets/langs-card.svg assets/contrib-card.svg assets/pin-*.svg
+          git add assets/stats-card.svg assets/langs-card.svg assets/contrib-card.svg assets/feature-*.svg assets/pin-*.svg
           if git diff --staged --quiet; then
             echo "nothing changed"
           else

@@ -38,7 +38,7 @@
 - 🧱 **在做** · 广告过滤规则 / Android 小工具 / 给老游戏和老软件续命
 - 🌵 **常用** · `Kotlin` `TypeScript` `Rust` `C++` `Python` `Shell`
 - 🎨 **不写码的时候** · 画画、打彩虹六号、扛着道具去漫展
-- 📮 **找我** · [zyc.su](https://me.awads.cc/) · [awads.cc](https://awads.cc) · [@Simon_Twilight](https://x.com/Simon_Twilight)
+- 📮 **找我** · [关于我](https://me.awads.cc/) · [秋风塬上](https://awads.cc) · [@Simon_Twilight](https://x.com/Simon_Twilight)
 
 <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/divider.svg" width="100%" alt=""/>
 
@@ -46,20 +46,9 @@
 
 ### 🛡️ 招牌
 
-<table>
-<tr>
-<td width="50%" valign="middle">
+<a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/feature-AWAvenue-Ads-Rule.svg" width="100%" alt="AWAvenue-Ads-Rule"/></a>
 
-<a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-AWAvenue-Ads-Rule.svg" width="100%" alt="AWAvenue-Ads-Rule"/></a>
-
-</td>
-<td width="50%" valign="middle">
-
-<sub><b>秋风广告规则</b> —— 众多优秀广告规则的上游，开源社区中最棒的广告过滤器列表之一。兼容 AdGuard / AdAway / hosts / Mosdns / Clash Meta / QuantumultX 等一众工具。<br/>🌐 <a href="https://awavenue.top">awavenue.top</a></sub>
-
-</td>
-</tr>
-</table>
+<p align="center"><sub><b>秋风广告规则</b> —— 众多优秀广告规则的上游，开源社区中最棒的广告过滤器列表之一。<br/>🌐 <a href="https://awavenue.top">awavenue.top</a> · 📦 <a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule">GitHub</a></sub></p>
 
 ### 📱 Android 工具箱
 

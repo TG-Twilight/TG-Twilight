@@ -32,11 +32,15 @@ RAMP    = ["#FF8C42", "#FFD166", "#FF5F6D", "#C05299", "#7B4B94", "#E8A33D", "#6
 
 # 顺序无所谓，README 里按分组摆；新增仓库记得同时在 README 里放上对应的 pin-*.svg
 PINS = [
-    "AWAvenue-Ads-Rule",
     "Any.ADB", "Call.Editor", "JKS.Recover", "Fastboot.js-Next",
     "CaveStory-rs", "DeskPins",
     "Starstruck", "Gamer-Skill-Icons",
 ]
+
+# 招牌项目单独画一张全宽横幅卡 → assets/feature-<name>.svg
+FEATURE = "AWAvenue-Ads-Rule"
+FEATURE_TAGLINE = "The upstream of many great ad-block lists — one of the best in open source."
+FEATURE_WORKS_WITH = ["AdGuard", "AdAway", "hosts", "Mosdns", "Clash Meta", "QuantumultX"]
 
 SANS = "'Segoe UI',Roboto,'Helvetica Neue',Arial,'PingFang SC','Microsoft YaHei',sans-serif"
 MONO = "ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,'Liberation Mono',monospace"
@@ -89,6 +93,9 @@ def collect():
     pins = [{"name": r["name"], "lang": r.get("language"),
              "stars": r.get("stargazers_count", 0), "forks": r.get("forks_count", 0)}
             for r in (by_name.get(n) for n in PINS) if r]
+    f = by_name.get(FEATURE)
+    feature = f and {"name": f["name"], "stars": f.get("stargazers_count", 0),
+                     "forks": f.get("forks_count", 0), "since": (f.get("created_at") or "")[:4]}
 
     created = (user.get("created_at") or "2015-01-01")[:4]
     today = datetime.date.today()
@@ -97,6 +104,7 @@ def collect():
     return {
         "contrib":   summarise(contrib),
         "pins":      pins,
+        "feature":   feature,
         "name":      user.get("name") or USER,
         "stars":     sum(r.get("stargazers_count", 0) for r in own),
         "forks":     sum(r.get("forks_count", 0) for r in own),
@@ -396,6 +404,70 @@ def pin_card(r):
     return shell(W, H, "", body, "P", label="%s — %s stars" % (r["name"], r["stars"]))
 
 
+def feature_card(r):
+    """招牌项目的全宽横幅：左边名字 / 一句话 / 兼容工具，右边大号 star 数。"""
+    W, H, SPLIT = 880, 220, 624
+    CX = (SPLIT + W) / 2
+    out = []
+
+    # 右侧落日余晖，垫在 star 数后面
+    out.append(f'<defs><radialGradient id="glowF" cx="50%" cy="50%" r="50%">'
+               f'<stop offset="0%" stop-color="{CORAL}" stop-opacity=".30"/>'
+               f'<stop offset="60%" stop-color="{ORANGE}" stop-opacity=".08"/>'
+               f'<stop offset="100%" stop-color="{ORANGE}" stop-opacity="0"/>'
+               f'</radialGradient></defs>'
+               f'<ellipse cx="{CX:.0f}" cy="104" rx="150" ry="104" fill="url(#glowF)"/>')
+
+    # 左：眉标 + 名字 + 一句话
+    out.append(f'<g transform="translate(32,31)"><g fill="none" stroke="{ORANGE}" stroke-width="1.5" '
+               f'stroke-linejoin="round" stroke-linecap="round">'
+               f'<path d="M8 1.2L14 3.4V8c0 3.6-2.6 6-6 7-3.4-1-6-3.4-6-7V3.4z"/>'
+               f'<path d="M5.4 8.2l1.9 1.8 3.5-3.8"/></g></g>')
+    out.append(f'<text x="56" y="44" fill="{ORANGE}" font-family="{MONO}" font-size="11" '
+               f'letter-spacing="2">FLAGSHIP &#183; SINCE {esc(r["since"])}</text>')
+    out.append(f'<text x="30" y="90" fill="{GOLD}" font-family="{SANS}" font-size="32" '
+               f'font-weight="700">{esc(r["name"])}</text>')
+    out.append(f'<text x="32" y="118" fill="{INK}" font-family="{SANS}" font-size="13.5">'
+               f'{esc(FEATURE_TAGLINE)}</text>')
+    out.append(f'<rect x="32" y="134" width="0" height="1.6" fill="url(#ruleF)">'
+               f'<animate attributeName="width" from="0" to="280" dur=".9s" begin=".15s" fill="freeze"/></rect>')
+
+    # 左下：兼容工具标签
+    chips, x = [], 32
+    for i, name in enumerate(FEATURE_WORKS_WITH):
+        w = est(name, 12) + 22
+        chips.append(f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur=".4s" '
+                     f'begin="{0.45 + i * 0.07:.2f}s" fill="freeze"/>'
+                     f'<rect x="{x:.1f}" y="170" width="{w:.1f}" height="24" rx="12" fill="#2A1B33" '
+                     f'stroke="{ORANGE}" stroke-opacity=".45"/>'
+                     f'<text x="{x + w / 2:.1f}" y="186" fill="{INK}" font-family="{SANS}" font-size="12" '
+                     f'text-anchor="middle">{esc(name)}</text></g>')
+        x += w + 8
+    out.append(f'<text x="32" y="160" fill="{MUTED}" font-family="{MONO}" font-size="10.5" '
+               f'letter-spacing="1.5">WORKS WITH</text>' + "".join(chips))
+
+    # 右：star / fork
+    out.append(f'<rect x="{SPLIT}" y="40" width="1" height="{H - 80}" fill="{ORANGE}" opacity=".22"/>')
+    out.append(f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur=".7s" '
+               f'begin=".3s" fill="freeze"/>'
+               f'<g transform="translate({CX - 11:.0f},38) scale(1.4)">{ICONS["star"] % GOLD}</g>'
+               f'<text x="{CX:.0f}" y="114" fill="{GOLD}" font-family="{MONO}" font-size="46" '
+               f'font-weight="700" text-anchor="middle">{num(r["stars"])}</text>'
+               f'<text x="{CX:.0f}" y="140" fill="{INK}" font-family="{SANS}" font-size="12" '
+               f'font-weight="600" letter-spacing="2.2" text-anchor="middle">STARS</text></g>')
+    forks = "%s forks" % num(r["forks"])
+    fw = 18 + est(forks, 12)
+    fx = CX - fw / 2
+    out.append(f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur=".5s" '
+               f'begin=".6s" fill="freeze"/>'
+               f'<g transform="translate({fx:.0f},{175}) scale(0.8)">{ICONS["fork"].replace("%s", MUTED)}</g>'
+               f'<text x="{fx + 18:.0f}" y="186" fill="{MUTED}" font-family="{MONO}" '
+               f'font-size="12">{forks}</text></g>')
+
+    return shell(W, H, "", "\n  ".join(out), "F",
+                 label="%s — %s stars" % (r["name"], r["stars"]))
+
+
 if __name__ == "__main__":
     try:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -414,6 +486,8 @@ if __name__ == "__main__":
     if FAILURES:
         sys.exit("refusing to write cards: %d API call(s) failed (rate limit?) -- "
                  "keeping the previous SVGs" % len(FAILURES))
+    if not data["feature"]:
+        sys.exit("refusing to write cards: feature repo %s not found" % FEATURE)
     if len(data["pins"]) != len(PINS):
         sys.exit("refusing to write cards: only resolved %d/%d pinned repos"
                  % (len(data["pins"]), len(PINS)))
@@ -422,6 +496,7 @@ if __name__ == "__main__":
     cards = [("stats-card.svg", stats_card(data)), ("langs-card.svg", langs_card(data))]
     if data["contrib"]:
         cards.append(("contrib-card.svg", contrib_card(data["contrib"])))
+    cards.append(("feature-%s.svg" % FEATURE, feature_card(data["feature"])))
     cards += [("pin-%s.svg" % r["name"], pin_card(r)) for r in data["pins"]]
     for fname, svg in cards:
         with open(os.path.join(OUT, fname), "w", encoding="utf-8") as f:
