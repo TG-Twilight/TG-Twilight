@@ -35,45 +35,106 @@
 
 日落之地的赛博牛仔 —— 白天写规则，晚上画画，周末出 cos。
 
-- 🧱 **在做** · 广告过滤规则 / Android 工具 / 顺手写的小玩具
-- 🌵 **常用** · `Shell` `TypeScript` `Python` `Go` `JavaScript`
+- 🧱 **在做** · 广告过滤规则 / Android 小工具 / 给老游戏和老软件续命
+- 🌵 **常用** · `Kotlin` `TypeScript` `Rust` `C++` `Python` `Shell`
 - 🎨 **不写码的时候** · 画画、打彩虹六号、扛着道具去漫展
 - 📮 **找我** · [zyc.su](https://me.awads.cc/) · [awads.cc](https://awads.cc) · [@Simon_Twilight](https://x.com/Simon_Twilight)
 
 <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/divider.svg" width="100%" alt=""/>
 
-## 🌟 Some Projects
+## 🌟 Projects
+
+### 🛡️ 招牌
+
+<table>
+<tr>
+<td width="50%" valign="middle">
+
+<a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-AWAvenue-Ads-Rule.svg" width="100%" alt="AWAvenue-Ads-Rule"/></a>
+
+</td>
+<td width="50%" valign="middle">
+
+<sub><b>秋风广告规则</b> —— 众多优秀广告规则的上游，开源社区中最棒的广告过滤器列表之一。兼容 AdGuard / AdAway / hosts / Mosdns / Clash Meta / QuantumultX 等一众工具。<br/>🌐 <a href="https://awavenue.top">awavenue.top</a></sub>
+
+</td>
+</tr>
+</table>
+
+### 📱 Android 工具箱
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
-<a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-AWAvenue-Ads-Rule.svg" width="100%" alt="AWAvenue-Ads-Rule"/></a>
+<a href="https://github.com/TG-Twilight/Any.ADB"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-Any.ADB.svg" width="100%" alt="Any.ADB"/></a>
 
-<sub><b>秋风广告规则</b> —— 众多优秀广告规则的上游，开源社区中最棒的广告过滤器列表之一。兼容 AdGuard / AdAway / hosts / Mosdns / Clash Meta 等一众工具。</sub>
+<sub><b>Any ADB</b> —— 借 Sui / Shizuku（root）或直接 <code>su</code>，给任意 Android 设备开一个固定的 TCP ADB 端口。端口冲突检测、失败自动回滚、可选开机恢复；配上 Tailscale 就能跨网络调试。</sub>
 
 </td>
 <td width="50%" valign="top">
 
-<a href="https://github.com/TG-Twilight/Starstruck"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-Starstruck.svg" width="100%" alt="Starstruck"/></a>
+<a href="https://github.com/TG-Twilight/Call.Editor"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-Call.Editor.svg" width="100%" alt="Call.Editor"/></a>
 
-<sub>玩具项目 —— 一键统计某个仓库被哪些「显赫人物」Star 过，顺便探索大佬们的影响力圈子。</sub>
+<sub><b>通话记录编辑器</b> —— Kotlin + Compose + Material 3 Expressive 的原生通话记录编辑 / 备份工具。增删改、JSON 备份与去重恢复，全程本地、没有联网权限。</sub>
 
 </td>
 </tr>
 <tr>
 <td width="50%" valign="top">
 
-<a href="https://github.com/TG-Twilight/Gamer-Skill-Icons"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-Gamer-Skill-Icons.svg" width="100%" alt="Gamer-Skill-Icons"/></a>
+<a href="https://github.com/TG-Twilight/JKS.Recover"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-JKS.Recover.svg" width="100%" alt="JKS.Recover"/></a>
 
-<sub>向所有人、在任何地方展示你喜爱的游戏图标 —— 易于集成、可自托管的 SVG 图标 API。</sub>
+<sub>纯客户端的 Android 签名文件（keystore）密码找回工具，全程本地运算，什么都不上传。<br/>🌐 <a href="https://jks.awads.cc">jks.awads.cc</a></sub>
 
 </td>
 <td width="50%" valign="top">
 
-<a href="https://github.com/TG-Twilight/JKS.Recover"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-JKS.Recover.svg" width="100%" alt="JKS.Recover"/></a>
+<a href="https://github.com/TG-Twilight/Fastboot.js-Next"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-Fastboot.js-Next.svg" width="100%" alt="Fastboot.js-Next"/></a>
 
-<sub>纯客户端的 Android 签名文件（keystore）密码找回工具，全程本地运算，什么都不上传。</sub>
+<sub>基于 WebUSB 的网页刷机面板，给 fastboot.js 换上 Material 3 界面、中英双语和危险操作二次确认。<i>纯属 vibecoding 练手，刷机前请三思。</i></sub>
+
+</td>
+</tr>
+</table>
+
+### 🕹️ 给老东西续命
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://github.com/TG-Twilight/CaveStory-rs"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-CaveStory-rs.svg" width="100%" alt="CaveStory-rs"/></a>
+
+<sub><b>洞窟物语</b>引擎 doukutsu-rs 的社区分支 —— 简中 / 英 / 日三语、手柄布局与增强震动、Android 离线资源与存档迁移，还有借 Shizuku 驱动蓝牙手柄震动的独门绝技。</sub>
+
+</td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/TG-Twilight/DeskPins"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-DeskPins.svg" width="100%" alt="DeskPins"/></a>
+
+<sub><b>DeskPins 社区版</b> —— 把任意窗口钉在最上层。接着原作者 2015 年停更的 1.32 往下做：64 位、简体中文、深色模式、Per-Monitor DPI、便携模式，还补上了缺失的私有框架，<b>第一次让任何人都能编译它</b>。</sub>
+
+</td>
+</tr>
+</table>
+
+### 🧸 顺手写的小玩具
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://github.com/TG-Twilight/Starstruck"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-Starstruck.svg" width="100%" alt="Starstruck"/></a>
+
+<sub>一键统计某个仓库被哪些「显赫人物」Star 过，顺便探索大佬们的影响力圈子。<br/>🌐 <a href="https://star.awads.cc">star.awads.cc</a></sub>
+
+</td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/TG-Twilight/Gamer-Skill-Icons"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-Gamer-Skill-Icons.svg" width="100%" alt="Gamer-Skill-Icons"/></a>
+
+<sub>向所有人、在任何地方展示你喜爱的游戏图标 —— 易于集成、可自托管的 SVG 图标 API。<br/>🌐 <a href="https://r6.awads.cc">r6.awads.cc</a></sub>
 
 </td>
 </tr>

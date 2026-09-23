@@ -30,7 +30,13 @@ CORAL   = "#FF5F6D"
 MUTED   = "#9B8494"
 RAMP    = ["#FF8C42", "#FFD166", "#FF5F6D", "#C05299", "#7B4B94", "#E8A33D", "#6E5A78"]
 
-PINS = ["AWAvenue-Ads-Rule", "Starstruck", "Gamer-Skill-Icons", "JKS.Recover"]
+# 顺序无所谓，README 里按分组摆；新增仓库记得同时在 README 里放上对应的 pin-*.svg
+PINS = [
+    "AWAvenue-Ads-Rule",
+    "Any.ADB", "Call.Editor", "JKS.Recover", "Fastboot.js-Next",
+    "CaveStory-rs", "DeskPins",
+    "Starstruck", "Gamer-Skill-Icons",
+]
 
 SANS = "'Segoe UI',Roboto,'Helvetica Neue',Arial,'PingFang SC','Microsoft YaHei',sans-serif"
 MONO = "ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,'Liberation Mono',monospace"
