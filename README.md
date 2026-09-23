@@ -2,6 +2,7 @@
   ─────────────────────────────────────────────────────────────
    这个 README 的图片几乎全是自托管的，不看第三方服务脸色：
      assets/banner.svg       落日横幅，手写 SVG（改文案记得同步 textLength）
+                             名字是手写体路径 → tools/make_banner_name.py
      assets/divider.svg      分隔线
      assets/stats-strip.svg  统计长条 / 招牌横幅 / 仓库卡
      assets/feature-*.svg    → tools/make_cards.py 生成
@@ -151,6 +152,8 @@
 
 偶尔画点东西 —— Pixiv: **[Simon Twilight](https://www.pixiv.net/users/106832575)**
 
+- [146949017 — *Keep Smile！My Dear！*](https://www.pixiv.net/artworks/146949017)
+- [146948848 — *Hey! My Dear?*](https://www.pixiv.net/artworks/146948848)
 - [119393336 — *Judgement · HellTaker*](https://www.pixiv.net/artworks/119393336)
 
 <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/divider.svg" width="100%" alt=""/>
