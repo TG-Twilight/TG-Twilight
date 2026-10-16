@@ -33,9 +33,9 @@ RAMP    = ["#FF8C42", "#FFD166", "#FF5F6D", "#C05299", "#7B4B94", "#E8A33D", "#6
 
 # 顺序无所谓，README 里按分组摆；新增仓库记得同时在 README 里放上对应的 pin-*.svg
 PINS = [
-    "Any.ADB", "Call.Editor", "JKS.Recover", "Fastboot.js-Next",
-    "CaveStory-rs", "DeskPins",
-    "Starstruck", "Gamer-Skill-Icons",
+    "c001apk", "Any.ADB", "Call.Editor", "DeskPins",
+    "JKS.Recover", "Fastboot.js-Next", "Starstruck", "Gamer-Skill-Icons",
+    "CaveStory-rs", "AC130.Zombie.Gunship",
 ]
 
 # 招牌项目单独画一张全宽横幅卡 → assets/feature-<name>.svg
@@ -183,7 +183,7 @@ def shell(w, h, title, body, uid, label=None):
     </linearGradient>
   </defs>
   <rect x=".9" y=".9" width="{w - 1.8}" height="{h - 1.8}" rx="12" fill="{BG}" stroke="url(#edge{uid})" stroke-width="1.8"/>
-  {head}
+{head}
   {body}
 </svg>
 '''

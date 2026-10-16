@@ -36,7 +36,7 @@
 
 日落之地的赛博牛仔 —— 白天写规则，晚上画画，周末出 cos。
 
-- 🧱 **在做** · 广告过滤规则 / Android 小工具 / 给老游戏和老软件续命
+- 🧱 **在做** · 广告过滤规则 / 跨平台应用与实用工具 / 游戏折腾与旧软件维护
 - 🌵 **常用** · `Kotlin` `TypeScript` `Rust` `C++` `Python` `Shell`
 - 🎨 **不写码的时候** · 画画、打彩虹六号、扛着道具去漫展
 - 📮 **找我** · [关于我](https://me.awads.cc/) · [秋风塬上](https://awads.cc) · [@Simon_Twilight](https://x.com/Simon_Twilight)
@@ -51,10 +51,17 @@
 
 <p align="center"><sub><b>秋风广告规则</b> —— 众多优秀广告规则的上游，开源社区中最棒的广告过滤器列表之一。<br/>🌐 <a href="https://awavenue.top">awavenue.top</a> · 📦 <a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule">GitHub</a></sub></p>
 
-### 📱 Android 工具箱
+### 📱 应用与实用工具
 
 <table>
 <tr>
+<td width="50%" valign="top">
+
+<a href="https://github.com/TG-Twilight/c001apk"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-c001apk.svg" width="100%" alt="c001apk"/></a>
+
+<sub><b>c001apk</b> —— 基于 c001apk-flutter 接续维护的轻量非官方酷安客户端。修复 API、完善简体中文体验，支持浏览动态、文章与评论，提供本地收藏与屏蔽；使用 Flutter，目前重点维护 Android 与 Windows。</sub>
+
+</td>
 <td width="50%" valign="top">
 
 <a href="https://github.com/TG-Twilight/Any.ADB"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-Any.ADB.svg" width="100%" alt="Any.ADB"/></a>
@@ -62,6 +69,8 @@
 <sub><b>Any ADB</b> —— 借 Sui / Shizuku（root）或直接 <code>su</code>，给任意 Android 设备开一个固定的 TCP ADB 端口。端口冲突检测、失败自动回滚、可选开机恢复；配上 Tailscale 就能跨网络调试。</sub>
 
 </td>
+</tr>
+<tr>
 <td width="50%" valign="top">
 
 <a href="https://github.com/TG-Twilight/Call.Editor"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-Call.Editor.svg" width="100%" alt="Call.Editor"/></a>
@@ -69,7 +78,19 @@
 <sub><b>通话记录编辑器</b> —— Kotlin + Compose + Material 3 Expressive 的原生通话记录编辑 / 备份工具。增删改、JSON 备份与去重恢复，全程本地、没有联网权限。</sub>
 
 </td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/TG-Twilight/DeskPins"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-DeskPins.svg" width="100%" alt="DeskPins"/></a>
+
+<sub><b>DeskPins 社区版</b> —— 把任意窗口钉在最上层。接着原作者 2015 年停更的 1.32 往下做：64 位、简体中文、深色模式、Per-Monitor DPI、便携模式，还补上了缺失的私有框架，<b>第一次让任何人都能编译它</b>。</sub>
+
+</td>
 </tr>
+</table>
+
+### 🌐 Web 工具与服务
+
+<table>
 <tr>
 <td width="50%" valign="top">
 
@@ -86,32 +107,6 @@
 
 </td>
 </tr>
-</table>
-
-### 🕹️ 给老东西续命
-
-<table>
-<tr>
-<td width="50%" valign="top">
-
-<a href="https://github.com/TG-Twilight/CaveStory-rs"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-CaveStory-rs.svg" width="100%" alt="CaveStory-rs"/></a>
-
-<sub><b>洞窟物语</b>引擎 doukutsu-rs 的社区分支 —— 简中 / 英 / 日三语、手柄布局与增强震动、Android 离线资源与存档迁移，还有借 Shizuku 驱动蓝牙手柄震动的独门绝技。</sub>
-
-</td>
-<td width="50%" valign="top">
-
-<a href="https://github.com/TG-Twilight/DeskPins"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-DeskPins.svg" width="100%" alt="DeskPins"/></a>
-
-<sub><b>DeskPins 社区版</b> —— 把任意窗口钉在最上层。接着原作者 2015 年停更的 1.32 往下做：64 位、简体中文、深色模式、Per-Monitor DPI、便携模式，还补上了缺失的私有框架，<b>第一次让任何人都能编译它</b>。</sub>
-
-</td>
-</tr>
-</table>
-
-### 🧸 顺手写的小玩具
-
-<table>
 <tr>
 <td width="50%" valign="top">
 
@@ -125,6 +120,27 @@
 <a href="https://github.com/TG-Twilight/Gamer-Skill-Icons"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-Gamer-Skill-Icons.svg" width="100%" alt="Gamer-Skill-Icons"/></a>
 
 <sub>向所有人、在任何地方展示你喜爱的游戏图标 —— 易于集成、可自托管的 SVG 图标 API。<br/>🌐 <a href="https://r6.awads.cc">r6.awads.cc</a></sub>
+
+</td>
+</tr>
+</table>
+
+### 🎮 游戏与折腾
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://github.com/TG-Twilight/CaveStory-rs"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-CaveStory-rs.svg" width="100%" alt="CaveStory-rs"/></a>
+
+<sub><b>洞窟物语</b>引擎 doukutsu-rs 的社区分支 —— 简中 / 英 / 日三语、手柄布局与增强震动、Android 离线资源与存档迁移，还有借 Shizuku 驱动蓝牙手柄震动的独门绝技。</sub>
+
+</td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/TG-Twilight/AC130.Zombie.Gunship"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pin-AC130.Zombie.Gunship.svg" width="100%" alt="AC130.Zombie.Gunship"/></a>
+
+<sub><b>AC130Beta 本地游戏修改表</b> —— 用 Cheat Engine 折腾金钱、移动、弹药与伤害等属性，支持重生和换枪后跟随。包含 Lua 源码、CT 生成工具与模拟内存测试，供单人或自建房间使用。</sub>
 
 </td>
 </tr>
