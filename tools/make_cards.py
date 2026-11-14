@@ -6,7 +6,7 @@
 
     assets/hero.svg       页首 neofetch 终端卡      （tools/make_hero.py）
     assets/pacman.svg     吃豆人 + Claude 小精灵贡献图（tools/make_pacman.py）
-    assets/feature-*.svg  招牌项目横幅
+    assets/feature-*.svg  主项目横幅
     assets/pin-*.svg      仓库小卡
 
 由 .github/workflows/stats.yml 每天跑一次并提交。
@@ -27,16 +27,20 @@ USER = os.environ.get("GH_USER", "TG-Twilight")
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "assets")
 
-from sunset import (CORAL, GOLD, INK, MONO, MUTED, ORANGE, PANEL, esc, num, shell)
+from sunset import (CORAL, GOLD, INK, MONO, MUTED, ORANGE, PANEL, esc, mrow, mtext, num, shell,
+                    tw)
 
-# 顺序无所谓，README 里按分组摆；新增仓库记得同时在 README 里放上对应的 pin-*.svg
-PINS = [
-    "c001apk", "Any.ADB", "Call.Editor", "DeskPins",
-    "JKS.Recover", "Fastboot.js-Next", "Starstruck", "Gamer-Skill-Icons",
-    "CaveStory-rs", "AC130.Zombie.Gunship",
-]
+# 新增仓库：加进对应分组，并在 README 的同名小节里放上 pin-*.svg 和说明
+GROUPS = {
+    # 目录名: (强调色, [仓库…])。目录名会印在卡片上，README 的小标题与之对应
+    "apps":  (ORANGE,    ["c001apk", "Any.ADB", "Call.Editor", "DeskPins"]),
+    "web":   (CORAL,     ["JKS.Recover", "Fastboot.js-Next", "Starstruck", "Gamer-Skill-Icons"]),
+    "games": ("#C05299", ["CaveStory-rs", "AC130.Zombie.Gunship"]),
+}
+PINS = [name for _, names in GROUPS.values() for name in names]
+GROUP_OF = {name: group for group, (_, names) in GROUPS.items() for name in names}
 
-# 招牌项目单独画一张全宽横幅卡 → assets/feature-<name>.svg
+# 主项目单独画一张全宽横幅卡 → assets/feature-<name>.svg
 FEATURE = "AWAvenue-Ads-Rule"
 FEATURE_TAGLINE = "The upstream of many great ad-block lists — one of the best in open source."
 FEATURE_WORKS_WITH = ["AdGuard", "AdAway", "hosts", "Mosdns", "Clash Meta", "QuantumultX"]
@@ -86,7 +90,8 @@ def collect():
 
     by_name = {r["name"]: r for r in repos}
     pins = [{"name": r["name"], "lang": r.get("language"),
-             "stars": r.get("stargazers_count", 0), "forks": r.get("forks_count", 0)}
+             "stars": r.get("stargazers_count", 0), "forks": r.get("forks_count", 0),
+             "pushed": r.get("pushed_at")}
             for r in (by_name.get(n) for n in PINS) if r]
     f = by_name.get(FEATURE)
     feature = f and {"name": f["name"], "stars": f.get("stargazers_count", 0),
@@ -230,37 +235,46 @@ def summarise(days):
 
 
 def pin_card(r):
-    """仓库小卡：名字 + 语言 + star / fork。中文说明留在 README 里，避免 SVG 缺字体。"""
-    W, H = 430, 96
-    name = esc(r["name"])
-    fs = 16 if est(name, 16) < 340 else 14
+    """仓库卡：像 ls -l 的一条记录 —— 所在目录、名字、star，下面是语言 / fork / 最近推送。
 
-    foot, x = [], 20
+    中文说明留在 README 里，避免 SVG 缺字体。
+    """
+    W, H = 430, 104
+    group = GROUP_OF.get(r["name"], "misc")
+    accent = GROUPS[group][0] if group in GROUPS else ORANGE
+    name = r["name"]
+    fs = 17 if tw(name, 17) < 290 else 15
+    stars = num(r["stars"])
+
+    # 左侧色条 = 所属分组；第一行是路径
+    out = [f'<rect x="16" y="18" width="4" height="{H - 36}" rx="2" fill="{accent}"/>',
+           mrow(32, 31, 11, [("~/projects/", MUTED), (group + "/", accent)])[0],
+           mtext(32, 56, name, fs, GOLD, bold=True),
+           f'<g transform="translate({W - 22 - tw(stars, 13) - 20:.1f},18)">{ICONS["star"] % GOLD}</g>',
+           mtext(W - 22, 31, stars, 13, GOLD, bold=True, anchor="end"),
+           f'<rect x="32" y="66" width="0" height="1.2" fill="url(#ruleP)">'
+           f'<animate attributeName="width" from="0" to="{W - 54}" dur=".8s" begin=".15s" fill="freeze"/></rect>']
+
+    foot, x = [], 32
     if r["lang"]:
-        foot.append(f'<circle cx="{x + 4}" cy="{H - 26}" r="4.2" fill="{ORANGE}"/>'
-                    f'<text x="{x + 14}" y="{H - 22}" fill="{MUTED}" font-family="{MONO}" '
-                    f'font-size="11.5">{esc(r["lang"])}</text>')
-        x += 14 + est(r["lang"], 11.5) + 22
-    for ic, val in (("star", r["stars"]), ("fork", r["forks"])):
-        foot.append(f'<g transform="translate({x:.0f},{H - 34}) scale(0.8)">'
-                    f'{ICONS[ic].replace("%s", MUTED)}</g>'
-                    f'<text x="{x + 18:.0f}" y="{H - 22}" fill="{INK}" font-family="{MONO}" '
-                    f'font-size="11.5">{num(val)}</text>')
-        x += 18 + est(num(val), 11.5) + 24
+        foot.append(f'<circle cx="{x + 4}" cy="{H - 20.5}" r="4" fill="{accent}"/>'
+                    + mtext(x + 14, H - 16.5, r["lang"], 11.5, INK))
+        x += 14 + tw(r["lang"], 11.5) + 18
+    forks = num(r["forks"])
+    foot.append(f'<g transform="translate({x:.0f},{H - 27}) scale(0.8)">{ICONS["fork"].replace("%s", MUTED)}</g>'
+                + mtext(x + 17, H - 16.5, forks, 11.5, INK))
+    if r.get("pushed"):
+        when = datetime.date.fromisoformat(r["pushed"][:10]).strftime("%b %Y")
+        foot.append(mrow(W - 22 - tw("pushed " + when, 11), H - 16.5, 11,
+                         [("pushed ", MUTED), (when, INK)])[0])
+    out.append(f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur=".5s" '
+               f'begin=".35s" fill="freeze"/>{"".join(foot)}</g>')
 
-    body = (f'{icon("repo", 20, 21)}'
-            f'<text x="44" y="34" fill="{GOLD}" font-family="{MONO}" font-size="{fs}" '
-            f'font-weight="600">{name}</text>'
-            f'<rect x="20" y="50" width="0" height="1.4" fill="url(#ruleP)">'
-            f'<animate attributeName="width" from="0" to="170" dur=".8s" begin=".15s" fill="freeze"/></rect>'
-            f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur=".5s" '
-            f'begin=".35s" fill="freeze"/>{"".join(foot)}</g>')
-
-    return shell(W, H, body, "P", "%s — %s stars" % (r["name"], r["stars"]))
+    return shell(W, H, "".join(out), "P", "%s — %s stars" % (r["name"], r["stars"]))
 
 
 def feature_card(r):
-    """招牌项目的全宽横幅：左边名字 / 一句话 / 兼容工具，右边大号 star 数。"""
+    """主项目的全宽横幅：左边名字 / 一句话 / 兼容工具，右边大号 star 数。"""
     W, H, SPLIT = 880, 220, 624
     CX = (SPLIT + W) / 2
     out = []
@@ -279,7 +293,7 @@ def feature_card(r):
                f'<path d="M8 1.2L14 3.4V8c0 3.6-2.6 6-6 7-3.4-1-6-3.4-6-7V3.4z"/>'
                f'<path d="M5.4 8.2l1.9 1.8 3.5-3.8"/></g></g>')
     out.append(f'<text x="56" y="44" fill="{ORANGE}" font-family="{MONO}" font-size="11" '
-               f'letter-spacing="2">FLAGSHIP &#183; SINCE {esc(r["since"])}</text>')
+               f'letter-spacing="2">AD-BLOCK FILTER LIST &#183; SINCE {esc(r["since"])}</text>')
     out.append(f'<text x="30" y="90" fill="{GOLD}" font-family="{MONO}" font-size="32" '
                f'font-weight="700">{esc(r["name"])}</text>')
     out.append(f'<text x="32" y="118" fill="{INK}" font-family="{MONO}" font-size="12.5">'

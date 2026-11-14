@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 80" width="430" height="80" role="img" aria-label="Keep Smile! My Dear! — Pixiv artwork 146949017" font-family="ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,Menlo,'DejaVu Sans Mono','Liberation Mono',monospace">
+  <style>text{white-space:pre}.px{shape-rendering:crispEdges}</style>
+  <defs>
+    <linearGradient id="edgeA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF8C42" stop-opacity=".85"/>
+      <stop offset="55%" stop-color="#FF5F6D" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#7B4B94" stop-opacity=".45"/>
+    </linearGradient>
+    <linearGradient id="ruleA" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFD166" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#FF5F6D" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x=".9" y=".9" width="428.2" height="78.2" rx="12" fill="#1B1123" stroke="url(#edgeA)" stroke-width="1.8"/>
+  <rect x="16" y="16" width="48" height="48" rx="10" fill="#2A1B33"/><path class="px" transform="translate(40,40)" d="M6 -14h8v4h-8zM2 -10h12v4h-12zM-2 -6h12v4h-12zM-6 -2h12v4h-12zM-14 2h4v4h-4zM-6 2h8v4h-8zM-14 6h8v4h-8zM-14 10h12v4h-12z" fill="#FF5F6D"/><text x="80.00" y="36.00" fill="#FFD166" font-size="15" textLength="180.00" font-weight="700">Keep Smile! My Dear!</text><text x="80.00" y="57.00" fill="#9B8494" font-size="11" textLength="125.40">pixiv.net/artworks/</text><text x="205.40" y="57.00" fill="#FF5F6D" font-size="11" textLength="59.40">146949017</text><text x="408.00" y="57.00" fill="#9B8494" font-size="11" textLength="46.20" text-anchor="end">2026-07</text>
+</svg>

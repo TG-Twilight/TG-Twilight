@@ -16,7 +16,7 @@
 | 位置 | 用途 |
 | --- | --- |
 | `README.md` | 个人主页内容和布局；顶部注释有资源维护说明 |
-| `assets/` | 终端卡、吃豆人贡献图、链接按钮、项目卡片、分隔线等 SVG |
+| `assets/` | 终端卡、吃豆人贡献图、链接按钮、项目卡片、涂鸦作品卡、cos 对话卡、分隔线等 SVG |
 | `Alastor.Cos/`、`R6.Cos/` | Cosplay 展示图与角色头像 |
 | `tools/` | 图片与 SVG 的生成脚本；`sunset.py` 是配色与等宽排版的公共模块 |
 | `.github/workflows/` | 终端卡、吃豆人贡献图、项目卡片的定时生成流程 |
@@ -26,9 +26,11 @@
 - 沿用现有「落日终端」风格：落日配色、等宽字体、终端窗口式卡片。颜色统一取自 `tools/sunset.py`，生成关系见 `MEMORY.md`。
 - 优先维护仓库自托管资源；新增外部服务依赖时说明用途。
 - 自动生成的资源应修改其生成脚本并重新生成，避免只改产物、随后被自动任务覆盖。
-- 新增或移除项目卡片时，同步检查 `tools/make_cards.py` 的 `PINS` / `FEATURE`、README 引用和对应 SVG。
+- 新增或移除项目卡片时，同步检查 `tools/make_cards.py` 的 `GROUPS` / `FEATURE`、README 引用和对应 SVG。
 - SVG 内的文字用 `textLength` 按 0.6em 字宽固定排版，只放单宽字符；中文内容写在 README。修改终端卡文案时编辑 `tools/make_hero.py` 的 `PROFILE`，并留意每行字数上限。
 - 新增或移除链接按钮时，同步 `tools/make_links.py` 的 `LINKS`、README 引用和对应 SVG。
+- 新增涂鸦时更新 `tools/make_graffiti.py` 的 `WORKS`；修改 cos 台词或头像时更新 `tools/make_dialogue.py` 的 `SCENES`。两者都是静态资源，改完需手动重跑并同步 README。
+- README 的中文说明用平实的口吻写：讲清楚是什么、做了什么即可，避免排比、口号和夸张措辞。
 - README 的资源链接多为 `raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/...`，改名或移动文件时同步修改引用。
 - Cosplay 原始 JPG 保留在本地，继续遵守 `.gitignore`；仓库提交导出的 WebP。
 

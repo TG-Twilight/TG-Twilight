@@ -18,17 +18,16 @@ HOST = "simon@twilight"
 
 # (键, 值)；None 开头的是小节标题
 PROFILE = [
-    ("Alias", "SuperCowboy, forever in the sunset"),
+    ("Alias", "SuperCowboy who lives forever in the sunset"),
     ("Uptime", "{uptime} on GitHub"),
-    ("Routine", "rules by day, sketches by night, cosplay on weekends"),
     ("Hobbies", "drawing, Rainbow Six Siege, cosplay"),
     (None, "Stack"),
     ("Languages", "Kotlin, TypeScript, Rust, C++, Python, Shell"),
-    ("Building", "ad-block rules, cross-platform apps, utilities"),
-    ("Tinkering", "game mods, reviving abandoned software"),
+    ("Building", "ad-block rules, apps and small tools"),
+    ("Tinkering", "game mods, old abandoned software"),
     (None, "Contact"),
     ("Web", "me.awads.cc", "Blog", "awads.cc"),
-    ("X", "@Simon_Twilight", "Pixiv", "Simon Twilight"),
+    ("X", "@Simon_Twilight", "Pixiv", "Twilight"),
 ]
 
 LANG_ALIAS = {"Adblock Filter List": "Adblock"}
