@@ -131,7 +131,6 @@
 <td>
 <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/cos-alastor.svg" alt="Alastor: You're never fully dressed without a smile！ Vox: ...Put me down, Alastor." width="100%"/>
 <p align="center">📍 2026 成都世界动漫展 · 5.1 – 5.4</p>
-<p align="center"><sub>对话头像取自角色官方立绘（Alastor render by OKDraws），来源 <a href="https://hazbinhotel.fandom.com/">Hazbin Hotel Wiki</a>。</sub></p>
 </td>
 </tr>
 </table>
@@ -140,7 +139,7 @@
 
 <div align="center">
 
-<img src="https://count.getloli.com/get/@TG-Twilight?theme=booru-helltaker" alt="Profile Views" width="640"/>
+<img src="https://count.getloli.com/get/@TG-Twiligh?theme=booru-helltaker" alt="Profile Views" width="640"/>
 
 <br/><br/>
 
