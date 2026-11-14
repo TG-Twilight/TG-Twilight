@@ -1,57 +1,49 @@
 <!--
   ─────────────────────────────────────────────────────────────
-   这个 README 的图片几乎全是自托管的，不看第三方服务脸色：
-     assets/banner.svg       落日横幅，手写 SVG（改文案记得同步 textLength）
-                             名字是手写体路径 → tools/make_banner_name.py
-     assets/divider.svg      分隔线
-     assets/stats-strip.svg  统计长条 / 招牌横幅 / 仓库卡
-     assets/feature-*.svg    → tools/make_cards.py 生成
-     assets/pin-*.svg        → .github/workflows/stats.yml 每天自动刷新
+   落日终端风格。图片几乎全是自托管的，不看第三方服务脸色：
+     assets/hero.svg         页首 neofetch 终端卡   → tools/make_hero.py
+     assets/pacman.svg       吃豆人 + Claude 小精灵 → tools/make_pacman.py
+     assets/feature-*.svg    招牌横幅 / 仓库卡      → tools/make_cards.py
+     assets/pin-*.svg
+       ↑ 以上由 .github/workflows/stats.yml 每天自动刷新
+         （入口统一是 python tools/make_cards.py）
+     assets/link-*.svg       像素链接按钮（静态）   → tools/make_links.py
+     assets/divider.svg      分隔线（手写）
      Alastor.Cos/*.webp      cos 主图（本地原图裁出，原图走 .gitignore）
                              与两个角色头像（现拉官方立绘裁圆）
                              → tools/make_cos_assets.py
-   仅剩的外部依赖：shields.io 徽章、count.getloli.com 计数器、
+   配色与等宽排版的公共零件在 tools/sunset.py。
+   仅剩的外部依赖：count.getloli.com 计数器、
    r6.awads.cc 图标（你自己的服务）。
   ─────────────────────────────────────────────────────────────
 -->
 
-<div align="center">
+<a href="https://me.awads.cc/"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/hero.svg" width="100%" alt="Simon Twilight — The SuperCowboy who lives forever in the sunset"/></a>
 
-<img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/banner.svg" alt="Simon Twilight — The SuperCowboy who lives forever in the sunset" width="100%"/>
+<p align="center">
+<a href="https://steamcommunity.com/id/SuperCowboy/"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/link-steam.svg" width="32%" alt="Steam"/></a>
+<a href="https://x.com/Simon_Twilight"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/link-x.svg" width="32%" alt="X"/></a>
+<a href="https://www.pixiv.net/users/106832575"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/link-pixiv.svg" width="32%" alt="Pixiv"/></a><br/>
+<a href="https://me.awads.cc/"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/link-homepage.svg" width="32%" alt="个人主页"/></a>
+<a href="https://awads.cc"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/link-blog.svg" width="32%" alt="博客"/></a>
+<a href="https://afdian.com/a/AdsRule"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/link-sponsor.svg" width="32%" alt="赞助我"/></a>
+</p>
 
-<br/>
+<p align="center">日落之地的赛博牛仔 —— 白天写规则，晚上画画，周末出 cos。</p>
 
-<a href="https://steamcommunity.com/id/SuperCowboy/" target="_blank"><img src="https://img.shields.io/badge/Steam-1B1123?style=for-the-badge&logo=steam&logoColor=FFD166" alt="Steam"/></a>
-<a href="https://x.com/Simon_Twilight" target="_blank"><img src="https://img.shields.io/badge/X-1B1123?style=for-the-badge&logo=x&logoColor=F3D9C4" alt="X"/></a>
-<a href="https://www.pixiv.net/users/106832575" target="_blank"><img src="https://img.shields.io/badge/Pixiv-FF5F6D?style=for-the-badge&logo=pixiv&logoColor=white" alt="Pixiv"/></a>
-<a href="https://me.awads.cc/" target="_blank"><img src="https://img.shields.io/badge/Homepage-7B4B94?style=for-the-badge&logo=firefoxbrowser&logoColor=white" alt="个人主页"/></a>
-<a href="https://awads.cc" target="_blank"><img src="https://img.shields.io/badge/Blog-D9464F?style=for-the-badge&logo=rss&logoColor=white" alt="博客"/></a>
-<a href="https://afdian.com/a/AdsRule" target="_blank"><img src="https://img.shields.io/badge/%E8%B5%9E%E5%8A%A9%E6%88%91-FF8C42?style=for-the-badge&logo=buymeacoffee&logoColor=1B1123" alt="赞助我"/></a>
-
-</div>
-
-<img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/divider.svg" width="100%" alt=""/>
-
-## `whoami`
-
-日落之地的赛博牛仔 —— 白天写规则，晚上画画，周末出 cos。
-
-- 🧱 **在做** · 广告过滤规则 / 跨平台应用与实用工具 / 游戏折腾与旧软件维护
-- 🌵 **常用** · `Kotlin` `TypeScript` `Rust` `C++` `Python` `Shell`
-- 🎨 **不写码的时候** · 画画、打彩虹六号、扛着道具去漫展
-- 📮 **找我** · [关于我](https://me.awads.cc/) · [秋风塬上](https://awads.cc) · [@Simon_Twilight](https://x.com/Simon_Twilight)
+<img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/pacman.svg" width="100%" alt="吃豆人正在吃掉我过去一年的贡献格子，三只 Claude 小精灵在后面追"/>
 
 <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/divider.svg" width="100%" alt=""/>
 
-## 🌟 Projects
+## `~/projects`
 
-### 🛡️ 招牌
+### 招牌
 
 <a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/feature-AWAvenue-Ads-Rule.svg" width="100%" alt="AWAvenue-Ads-Rule"/></a>
 
 <p align="center"><sub><b>秋风广告规则</b> —— 众多优秀广告规则的上游，开源社区中最棒的广告过滤器列表之一。<br/>🌐 <a href="https://awavenue.top">awavenue.top</a> · 📦 <a href="https://github.com/TG-Twilight/AWAvenue-Ads-Rule">GitHub</a></sub></p>
 
-### 📱 应用与实用工具
+### 应用与实用工具
 
 <table>
 <tr>
@@ -88,7 +80,7 @@
 </tr>
 </table>
 
-### 🌐 Web 工具与服务
+### Web 工具与服务
 
 <table>
 <tr>
@@ -125,7 +117,7 @@
 </tr>
 </table>
 
-### 🎮 游戏与折腾
+### 游戏与折腾
 
 <table>
 <tr>
@@ -148,23 +140,7 @@
 
 <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/divider.svg" width="100%" alt=""/>
 
-## 📊 Stats
-
-<a href="https://github.com/TG-Twilight?tab=repositories"><img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/stats-strip.svg" width="100%" alt="GitHub Stats"/></a>
-
-<details>
-<summary><sub>🐍 放条蛇出来吃贡献格子</sub></summary>
-<br/>
-<picture>
-  <source media="(prefers-color-scheme: dark)"  srcset="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/profile-contrib-snake/github-snake-dark.svg"/>
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/profile-contrib-snake/github-snake.svg"/>
-  <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/profile-contrib-snake/github-snake.svg" alt="GitHub Contribution Snake" width="100%"/>
-</picture>
-</details>
-
-<img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/divider.svg" width="100%" alt=""/>
-
-## 🎨 Graffiti
+## `~/graffiti`
 
 偶尔画点东西 —— Pixiv: **[Simon Twilight](https://www.pixiv.net/users/106832575)**
 
@@ -174,12 +150,12 @@
 
 <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/assets/divider.svg" width="100%" alt=""/>
 
-## 🎭 Cosplay
+## `~/cosplay`
 
-### 🎮 Tom Clancy's Rainbow Six Siege X — Jäger & Solis in Hotel
+### Tom Clancy's Rainbow Six Siege X — Jäger & Solis in Hotel
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/profile-contrib-snake/jager%2Csolis.webp" alt="Jäger and Solis" width="100%"/>
+  <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/R6.Cos/jager-solis.webp" alt="Jäger and Solis" width="100%"/>
 </p>
 
 <table>
@@ -193,7 +169,7 @@
 </tr>
 </table>
 
-### 😈 Hazbin Hotel — Alastor, the Radio Demon
+### Hazbin Hotel — Alastor, the Radio Demon
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/Alastor.Cos/alastor.webp" alt="Alastor" width="400"/>
@@ -218,7 +194,7 @@
 
 <div align="center">
 
-<img src="https://count.getloli.com/get/@TG-Twiligh?theme=booru-helltaker" alt="Profile Views" width="640"/>
+<img src="https://count.getloli.com/get/@TG-Twilight?theme=booru-helltaker" alt="Profile Views" width="640"/>
 
 <br/><br/>
 

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 56" width="290" height="56" role="img" aria-label="Blog" font-family="ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,Menlo,'DejaVu Sans Mono','Liberation Mono',monospace">
+  <defs>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF8C42" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#7B4B94" stop-opacity=".5"/>
+    </linearGradient>
+  </defs>
+  <rect x="3.9" y="3.9" width="282.2" height="48.2" rx="10" fill="#1B1123" stroke="url(#edge)" stroke-width="1.8"/>
+  <path transform="translate(111.0,28.0)" d="M-10.5 -9h12v3h-12zM1.5 -6h6v3h-6zM-10.5 -3h9v3h-9zM7.5 -3h3v3h-3zM-1.5 0h6v3h-6zM7.5 0h3v3h-3zM-10.5 3h6v3h-6zM1.5 3h3v3h-3zM7.5 3h3v3h-3zM-10.5 6h6v3h-6zM1.5 6h3v3h-3zM7.5 6h3v3h-3z" fill="#FF8C42" shape-rendering="crispEdges"/>
+  <text x="135.50" y="33.50" fill="#F3D9C4" font-size="16" textLength="38.40" font-weight="700">BLOG</text>
+  <rect x="179.9" y="20.0" width="9.6" height="16" fill="#FF8C42"><animate attributeName="opacity" calcMode="discrete" values="1;0" dur="1.06s" repeatCount="indefinite"/></rect>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 56" width="290" height="56" role="img" aria-label="Pixiv" font-family="ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,Menlo,'DejaVu Sans Mono','Liberation Mono',monospace">
+  <defs>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF5F6D" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#7B4B94" stop-opacity=".5"/>
+    </linearGradient>
+  </defs>
+  <rect x="3.9" y="3.9" width="282.2" height="48.2" rx="10" fill="#1B1123" stroke="url(#edge)" stroke-width="1.8"/>
+  <path transform="translate(106.2,28.0)" d="M4.5 -10.5h6v3h-6zM1.5 -7.5h9v3h-9zM-1.5 -4.5h9v3h-9zM-4.5 -1.5h9v3h-9zM-10.5 1.5h3v3h-3zM-4.5 1.5h6v3h-6zM-10.5 4.5h6v3h-6zM-10.5 7.5h9v3h-9z" fill="#FF5F6D" shape-rendering="crispEdges"/>
+  <text x="130.70" y="33.50" fill="#F3D9C4" font-size="16" textLength="48.00" font-weight="700">PIXIV</text>
+  <rect x="184.7" y="20.0" width="9.6" height="16" fill="#FF5F6D"><animate attributeName="opacity" calcMode="discrete" values="1;0" dur="1.06s" repeatCount="indefinite"/></rect>
+</svg>

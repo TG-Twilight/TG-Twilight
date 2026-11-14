@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 56" width="290" height="56" role="img" aria-label="Homepage" font-family="ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,Menlo,'DejaVu Sans Mono','Liberation Mono',monospace">
+  <defs>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#C05299" stop-opacity=".9"/>
+      <stop offset="100%" stop-color="#7B4B94" stop-opacity=".5"/>
+    </linearGradient>
+  </defs>
+  <rect x="3.9" y="3.9" width="282.2" height="48.2" rx="10" fill="#1B1123" stroke="url(#edge)" stroke-width="1.8"/>
+  <path transform="translate(91.8,28.0)" d="M-1.5 -10.5h3v3h-3zM-4.5 -7.5h9v3h-9zM-7.5 -4.5h15v3h-15zM-10.5 -1.5h21v3h-21zM-7.5 1.5h6v3h-6zM1.5 1.5h6v3h-6zM-7.5 4.5h6v3h-6zM1.5 4.5h6v3h-6zM-7.5 7.5h6v3h-6zM1.5 7.5h6v3h-6z" fill="#C05299" shape-rendering="crispEdges"/>
+  <text x="116.30" y="33.50" fill="#F3D9C4" font-size="16" textLength="76.80" font-weight="700">HOMEPAGE</text>
+  <rect x="199.1" y="20.0" width="9.6" height="16" fill="#C05299"><animate attributeName="opacity" calcMode="discrete" values="1;0" dur="1.06s" repeatCount="indefinite"/></rect>
+</svg>

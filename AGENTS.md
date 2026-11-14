@@ -16,19 +16,19 @@
 | 位置 | 用途 |
 | --- | --- |
 | `README.md` | 个人主页内容和布局；顶部注释有资源维护说明 |
-| `assets/` | 横幅、分隔线、统计长条、项目卡片等 SVG |
-| `Alastor.Cos/` | Cosplay 展示图与角色头像 |
-| `profile-contrib-snake/` | 贡献蛇动画及部分展示图片 |
-| `tools/` | 图片与 SVG 的生成脚本 |
-| `.github/workflows/` | 统计卡片、贡献蛇的定时生成流程 |
+| `assets/` | 终端卡、吃豆人贡献图、链接按钮、项目卡片、分隔线等 SVG |
+| `Alastor.Cos/`、`R6.Cos/` | Cosplay 展示图与角色头像 |
+| `tools/` | 图片与 SVG 的生成脚本；`sunset.py` 是配色与等宽排版的公共模块 |
+| `.github/workflows/` | 终端卡、吃豆人贡献图、项目卡片的定时生成流程 |
 
 ## 修改内容与资源
 
-- 沿用现有落日配色和页面风格。主要颜色及生成关系见 `MEMORY.md`。
+- 沿用现有「落日终端」风格：落日配色、等宽字体、终端窗口式卡片。颜色统一取自 `tools/sunset.py`，生成关系见 `MEMORY.md`。
 - 优先维护仓库自托管资源；新增外部服务依赖时说明用途。
 - 自动生成的资源应修改其生成脚本并重新生成，避免只改产物、随后被自动任务覆盖。
 - 新增或移除项目卡片时，同步检查 `tools/make_cards.py` 的 `PINS` / `FEATURE`、README 引用和对应 SVG。
-- 修改横幅文本时检查 `textLength`、裁剪范围和动画；手写名字路径由 `tools/make_banner_name.py` 生成。
+- SVG 内的文字用 `textLength` 按 0.6em 字宽固定排版，只放单宽字符；中文内容写在 README。修改终端卡文案时编辑 `tools/make_hero.py` 的 `PROFILE`，并留意每行字数上限。
+- 新增或移除链接按钮时，同步 `tools/make_links.py` 的 `LINKS`、README 引用和对应 SVG。
 - README 的资源链接多为 `raw.githubusercontent.com/TG-Twilight/TG-Twilight/main/...`，改名或移动文件时同步修改引用。
 - Cosplay 原始 JPG 保留在本地，继续遵守 `.gitignore`；仓库提交导出的 WebP。
 

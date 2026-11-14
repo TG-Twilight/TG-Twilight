@@ -1,4 +1,4 @@
-name: refresh stats cards
+name: refresh profile cards
 
 on:
   schedule:
@@ -7,6 +7,9 @@ on:
   push:
     paths:
       - "tools/make_cards.py"
+      - "tools/make_hero.py"
+      - "tools/make_pacman.py"
+      - "tools/sunset.py"
       - ".github/workflows/stats.yml"
 
 permissions:
@@ -27,6 +30,7 @@ jobs:
           python-version: "3.12"
 
       # 纯标准库，没有 pip 依赖
+      # 一次取数，画出 hero / pacman / feature / pin 全部卡片
       - name: Render cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -37,10 +41,10 @@ jobs:
         run: |
           git config user.name  github-actions
           git config user.email github-actions@github.com
-          git add assets/stats-strip.svg assets/feature-*.svg assets/pin-*.svg
+          git add assets/hero.svg assets/pacman.svg assets/feature-*.svg assets/pin-*.svg
           if git diff --staged --quiet; then
             echo "nothing changed"
           else
-            git commit -m "chore: refresh stats cards"
+            git commit -m "chore: refresh profile cards"
             git push
           fi

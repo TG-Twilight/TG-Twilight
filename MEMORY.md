@@ -1,6 +1,6 @@
 # 项目记忆
 
-最后整理：2026-10-17。日常维护规则见 [AGENTS.md](AGENTS.md)。以下仓库事实在此次交接时根据本地文件核实，后续以实际代码和用户最新指示为准。
+最后整理：2026-11-15。日常维护规则见 [AGENTS.md](AGENTS.md)。以下仓库事实在此次交接时根据本地文件核实，后续以实际代码和用户最新指示为准。
 
 ## 用户偏好与交接
 
@@ -14,11 +14,16 @@
 
 - 本仓库为 `TG-Twilight/TG-Twilight` 的 GitHub Profile README，展示名为 Simon Twilight。
 - 页面主题为落日与赛博牛仔；主要资源在仓库内自托管。
-- `assets/banner.svg` 与 `tools/make_cards.py` 共用落日配色：背景 `#1B1123`、正文 `#F3D9C4`、金色 `#FFD166`、橙色 `#FF8C42`、珊瑚红 `#FF5F6D`。
+- 2026-11-15：用户对旧版页面不满意，喜欢 `hu553in/ascii-profile-card` 与 `ignaciochiappero` 主页的终端 / ASCII 风格，并指定把贡献蛇换成后者那种「吃豆人 + Claude 小精灵」。页面据此改为「落日终端」风格：页首 neofetch 终端卡（程序生成的 ASCII 落日 + 个人信息 + GitHub 数字 + 语言比例）、六个像素链接按钮、吃豆人贡献图，其后是项目、Graffiti、Cosplay。
+- 参考仓库 `ignaciochiappero/ignaciochiappero` 没有开源许可，这里只借鉴思路，脚本和像素图均为重新编写；继续维护时不要直接复制其代码。
+- 落日配色集中在 `tools/sunset.py`：背景 `#1B1123`、正文 `#F3D9C4`、金色 `#FFD166`、橙色 `#FF8C42`、珊瑚红 `#FF5F6D`、紫色 `#7B4B94`。Claude 小精灵使用角色自身的 `#D97757`。
+- 页面只保留一套深色卡片，没有按浅色 / 深色模式分别出图。
+- 此次移除：手写名字横幅（`assets/banner.svg`、`tools/make_banner_name.py`）、统计长条（数字和语言比例并入终端卡，逐年贡献柱不再展示）、`Platane/snk` 贡献蛇及其工作流、README 中的 shields.io 徽章。需要时可从 Git 历史（`40eccce` 及之前）取回。
+- R6 cos 图由 `profile-contrib-snake/jager,solis.webp` 移到 `R6.Cos/jager-solis.webp`。
 - 招牌项目为 `AWAvenue-Ads-Rule`；其他项目由卡片生成脚本中的 `PINS` 列表配置，页面分组与说明维护在 README。
 - 2026-10-17：项目区加入 `c001apk`、`AC130.Zombie.Gunship`，普通卡片按「应用与实用工具」「Web 工具与服务」「游戏与折腾」分为 4 / 4 / 2 张，保留招牌全宽卡和落日风格。
 - `c001apk` 为接续维护的 Flutter 非官方酷安客户端，目前重点维护 Android / Windows；Kotlin / Compose 迁移尚属计划，写简介时勿当作已完成。`AC130.Zombie.Gunship` 是 AC130Beta 本地游戏的 Cheat Engine 修改表。
-- README 还使用 shields.io 徽章、count.getloli.com 访问计数器和用户自有的 r6.awads.cc 图标服务。
+- README 仍使用的外部服务：count.getloli.com 访问计数器、用户自有的 r6.awads.cc 图标服务。
 
 ## 资源生成
 
@@ -26,23 +31,27 @@
 
 | 脚本 | 运行方式与依赖 | 输入与输出 |
 | --- | --- | --- |
-| [make_cards.py](tools/make_cards.py) | `python tools/make_cards.py`；仅 Python 标准库，需要联网 | GitHub 数据 → `assets/stats-strip.svg`、`assets/feature-*.svg`、`assets/pin-*.svg` |
-| [make_banner_name.py](tools/make_banner_name.py) | `python tools/make_banner_name.py`；依赖 `fonttools`、`uharfbuzz`，需要联网取字体 | Yellowtail 字体与脚本中的名字配置 → 改写 `assets/banner.svg` 的名字路径、裁剪框及光标 |
+| [make_cards.py](tools/make_cards.py) | `python tools/make_cards.py`；仅 Python 标准库，需要联网。统一入口，一次取数后调用下面两个模块 | GitHub 数据 → `assets/hero.svg`、`assets/pacman.svg`、`assets/feature-*.svg`、`assets/pin-*.svg` |
+| [make_hero.py](tools/make_hero.py) | 由 `make_cards.py` 调用，不单独运行 | `PROFILE` 文案 + 统计数据 → 页首终端卡；ASCII 落日由 `scene()` 程序绘制 |
+| [make_pacman.py](tools/make_pacman.py) | 由 `make_cards.py` 调用；也可 `python tools/make_pacman.py` 单独重画，只读公开贡献日历页面，不占 API 额度 | 最近 53 周贡献 → `assets/pacman.svg` |
+| [make_links.py](tools/make_links.py) | `python tools/make_links.py`；不联网 | `LINKS` 配置 → `assets/link-*.svg`（静态，不在定时任务内） |
 | [make_cos_assets.py](tools/make_cos_assets.py) | `python tools/make_cos_assets.py`；依赖 `Pillow`，头像需要联网 | 本地主图 JPG、在线角色立绘 → `Alastor.Cos/` 中三个 WebP |
 
 - 卡片脚本默认用户为 `TG-Twilight`，支持 `GH_USER`；认证取 `GITHUB_TOKEN` 或 `GH_TOKEN`。API 调用失败或项目数据不完整时会拒绝覆盖卡片。
 - 仅新增卡片时，可用公开仓库 API 的真实数据调用现有 `pin_card()`，只写对应 SVG，避免顺带刷新全部统计；同时更新 `PINS`，供后续自动任务继续维护。
 - Cos 主图当前输入为本地 `Alastor.Cos/photo_1_2026-08-24_22-25-24.jpg`；该 JPG 受 `.gitignore` 忽略，不能假设新克隆中存在。
-- 横幅以字形路径显示手写名字，避免依赖访问者字体或 SVG 中的外部字体加载。
+- SVG 文字一律使用系统等宽字体，并以 `textLength` 按 0.6em 字宽固定每段宽度，避免不同系统的等宽字体造成错位；因此 SVG 里不放中文等全宽字符。
+- 吃豆人贡献图的动画全部是 SMIL，共用同一总时长并从 0 开始以保持同步；`make_pacman.check()` 会校验 XML 与 `keyTimes`，不合法时生成会报错。追兵数量、间距和特长在 `CAST` 配置。
+- 本机 Git 为 `core.autocrlf=true`；生成脚本写文件时固定用 LF，与 CI 产物一致。
 
 ## 自动更新
 
-- [stats.yml](.github/workflows/stats.yml)：每天 UTC 20:23（UTC+8 次日 04:23）生成统计及项目卡片并提交；支持手动触发，修改该工作流或 `tools/make_cards.py` 的 push 也会触发。CI 使用 Python 3.12。
-- [snake.yml](.github/workflows/snake.yml)：每周日 UTC 19:17（UTC+8 周一 03:17）使用 `Platane/snk` 更新贡献蛇并提交，也支持手动触发。
+- [stats.yml](.github/workflows/stats.yml)：每天 UTC 20:23（UTC+8 次日 04:23）运行 `tools/make_cards.py`，生成终端卡、吃豆人贡献图及项目卡片并提交；支持手动触发，修改该工作流或 `make_cards.py` / `make_hero.py` / `make_pacman.py` / `sunset.py` 的 push 也会触发。CI 使用 Python 3.12。这是目前唯一的工作流。
 - 这些流程会自动提交生成产物；维护时留意远端可能出现的自动更新。
 
 ## 当前交接状态
 
-- 已更新 README 项目分组与「在做」简介，新增两张项目 SVG，并同步 `tools/make_cards.py` 的 `PINS`；没有修改工作流。
-- 接手时发现未跟踪的 `.claude/`，其中为 `settings.local.json`；它是既有本机设置，此次未改动或迁入文档。
-- 本次页面调整沿用现有生成器，仅生成新增卡片，没有运行完整统计刷新。
+- 2026-11-15 的重新设计已提交并推送；GitHub 页面上的实际动画和排版仍需确认。
+- 本地验证方式：Python 语法检查、全部 SVG 的 XML 解析、`git diff --check`、实际运行 `make_cards.py` / `make_pacman.py` / `make_links.py`，并用无头 Chrome 截图检查终端卡、按钮、项目卡，以及吃豆人动画在多个时间点的画面。未在 Firefox / Safari 或 GitHub 移动端验证。
+- 接手时发现未跟踪的 `.claude/`，其中为 `settings.local.json`；它是既有本机设置，未改动。
+- 2026-11-15：按用户指示把页脚计数器 ID 由 `@TG-Twiligh` 更正为 `@TG-Twilight`；新 ID 是独立的计数，从头累计。

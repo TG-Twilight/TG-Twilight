@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
-"""自托管的 GitHub 统计卡生成器 —— 配色跟 assets/banner.svg 完全一致。
+"""自托管的 GitHub 资料卡生成器 —— 落日终端风格，配色见 tools/sunset.py。
 
 不依赖 github-readme-stats 之类的公共实例（它们经常限流或直接下线），
-只调 GitHub 公开 REST API，把结果画成 assets/stats-strip.svg（统计长条）、
-assets/feature-*.svg（招牌横幅）与 assets/pin-*.svg（仓库卡），
+只调 GitHub 公开 REST API 和公开的贡献日历页面，一次取数、画出全部动态图：
+
+    assets/hero.svg       页首 neofetch 终端卡      （tools/make_hero.py）
+    assets/pacman.svg     吃豆人 + Claude 小精灵贡献图（tools/make_pacman.py）
+    assets/feature-*.svg  招牌项目横幅
+    assets/pin-*.svg      仓库小卡
+
 由 .github/workflows/stats.yml 每天跑一次并提交。
 
     python tools/make_cards.py            # 匿名调用，60 次/小时，够用
@@ -22,14 +27,7 @@ USER = os.environ.get("GH_USER", "TG-Twilight")
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "assets")
 
-# ── sunset palette，跟 banner.svg 同源 ──────────────────────────────
-BG      = "#1B1123"
-INK     = "#F3D9C4"
-GOLD    = "#FFD166"
-ORANGE  = "#FF8C42"
-CORAL   = "#FF5F6D"
-MUTED   = "#9B8494"
-RAMP    = ["#FF8C42", "#FFD166", "#FF5F6D", "#C05299", "#7B4B94", "#E8A33D", "#6E5A78"]
+from sunset import (CORAL, GOLD, INK, MONO, MUTED, ORANGE, PANEL, esc, num, shell)
 
 # 顺序无所谓，README 里按分组摆；新增仓库记得同时在 README 里放上对应的 pin-*.svg
 PINS = [
@@ -42,10 +40,6 @@ PINS = [
 FEATURE = "AWAvenue-Ads-Rule"
 FEATURE_TAGLINE = "The upstream of many great ad-block lists — one of the best in open source."
 FEATURE_WORKS_WITH = ["AdGuard", "AdAway", "hosts", "Mosdns", "Clash Meta", "QuantumultX"]
-
-SANS = "'Segoe UI',Roboto,'Helvetica Neue',Arial,'PingFang SC','Microsoft YaHei',sans-serif"
-MONO = "ui-monospace,SFMono-Regular,'Cascadia Mono',Consolas,'Liberation Mono',monospace"
-
 
 FAILURES = []
 
@@ -100,10 +94,14 @@ def collect():
 
     created = (user.get("created_at") or "2015-01-01")[:4]
     today = datetime.date.today()
-    contrib = fetch_contributions(int(created), today.year)
+    days, levels = fetch_contributions(int(created), today.year)
 
     return {
-        "contrib":   summarise(contrib),
+        "contrib":   summarise(days),
+        "days":      days,
+        "levels":    levels,
+        "created_at": user.get("created_at"),
+        "repos":     user.get("public_repos"),
         "pins":      pins,
         "feature":   feature,
         "name":      user.get("name") or USER,
@@ -140,15 +138,11 @@ ICONS = {
 
 
 def est(text, size):
-    """粗略字宽：CJK 按 1em，其余按 0.55em。"""
+    """粗略字宽：CJK 按 1em，其余按等宽字体的 0.6em。"""
     w = 0.0
     for ch in text:
-        w += 1.0 if ord(ch) > 0x2E80 else 0.55
+        w += 1.0 if ord(ch) > 0x2E80 else 0.6
     return w * size
-
-
-def esc(t):
-    return (t or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
 def icon(kind, x, y, color=ORANGE):
@@ -157,41 +151,12 @@ def icon(kind, x, y, color=ORANGE):
     return '<g transform="translate(%s,%s)">%s</g>' % (x, y, body)
 
 
-def num(v):
-    return "—" if v is None else "{:,}".format(v)
-
-
-def shell(w, h, title, body, uid, label=None):
-    """卡片外壳：暗底、渐变描边。title 为空时不画标题栏（仓库小卡用）。"""
-    head = ""
-    if title:
-        head = (f'<text x="24" y="33" fill="{GOLD}" font-family="{SANS}" font-size="16" '
-                f'font-weight="600">{title}</text>\n'
-                f'  <rect x="24" y="42" width="0" height="1.6" fill="url(#rule{uid})">'
-                f'<animate attributeName="width" from="0" to="{w * 0.42:.0f}" dur=".9s" '
-                f'begin=".1s" fill="freeze"/></rect>')
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="{label or title}">
-  <defs>
-    <linearGradient id="edge{uid}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="{ORANGE}" stop-opacity=".85"/>
-      <stop offset="55%" stop-color="{CORAL}" stop-opacity=".55"/>
-      <stop offset="100%" stop-color="#7B4B94" stop-opacity=".45"/>
-    </linearGradient>
-    <linearGradient id="rule{uid}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="{GOLD}" stop-opacity=".9"/>
-      <stop offset="100%" stop-color="{CORAL}" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <rect x=".9" y=".9" width="{w - 1.8}" height="{h - 1.8}" rx="12" fill="{BG}" stroke="url(#edge{uid})" stroke-width="1.8"/>
-{head}
-  {body}
-</svg>
-'''
-
-
 def fetch_contributions(created_year, this_year):
-    """从公开的贡献日历页面逐年抓 date -> count（不走 API，不吃 60 次/小时的额度）。"""
-    days = {}
+    """从公开的贡献日历页面逐年抓 date -> count 与 date -> level（0-4）。
+
+    不走 API，不吃 60 次/小时的额度。
+    """
+    days, levels = {}, {}
     for year in range(created_year, this_year + 1):
         url = ("https://github.com/users/%s/contributions?from=%d-01-01&to=%d-12-31"
                % (USER, year, year))
@@ -217,12 +182,14 @@ def fetch_contributions(created_year, this_year):
             cid = re.search(r'id="([^"]+)"', tag)
             if not date:
                 continue
+            lvl = re.search(r'data-level="(\d+)"', tag)
+            lvl = int(lvl.group(1)) if lvl else 0
             n = tips.get(cid.group(1) if cid else "", None)
             if n is None:                            # 没有 tooltip 时退回 level
-                lvl = re.search(r'data-level="(\d+)"', tag)
-                n = 1 if lvl and lvl.group(1) != "0" else 0
+                n = 1 if lvl else 0
             days[date.group(1)] = n
-    return days
+            levels[date.group(1)] = lvl if lvl or not n else 1
+    return days, levels
 
 
 def summarise(days):
@@ -262,83 +229,6 @@ def summarise(days):
     }
 
 
-LANG_ALIAS = {"Adblock Filter List": "Adblock"}
-
-
-def strip_card(d):
-    """一条 880×124 的细长统计条：关键数字 | 语言比例 | 逐年贡献。刻意做得低调。"""
-    W, H = 880, 124
-    out = []
-
-    def caption(x, text, anchor="start", color=MUTED):
-        return (f'<text x="{x}" y="30" fill="{color}" font-family="{MONO}" font-size="10" '
-                f'letter-spacing="1.6" text-anchor="{anchor}">{text}</text>')
-
-    def fade(i, body):
-        return (f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur=".5s" '
-                f'begin="{0.15 + i * 0.05:.2f}s" fill="freeze"/>{body}</g>')
-
-    # ① 关键数字，3 × 2
-    k = d["contrib"] or {}
-    metrics = [("STARS", d["stars"]), ("COMMITS", d["commits"]), ("CONTRIBS", k.get("total")),
-               ("PRS", d["prs"]), ("ISSUES", d["issues"]), ("FOLLOWERS", d["followers"])]
-    out.append(caption(24, "GITHUB"))
-    for i, (label, value) in enumerate(metrics):
-        x, y = 24 + (i % 3) * 96, 60 + (i // 3) * 38
-        out.append(fade(i, f'<text x="{x}" y="{y}" fill="{GOLD}" font-family="{MONO}" font-size="15" '
-                           f'font-weight="600">{num(value)}</text>'
-                           f'<text x="{x}" y="{y + 14}" fill="{MUTED}" font-family="{SANS}" '
-                           f'font-size="9.5" letter-spacing=".8">{label}</text>'))
-
-    for x in (316, 624):
-        out.append(f'<rect x="{x}" y="22" width="1" height="{H - 44}" fill="{ORANGE}" opacity=".2"/>')
-
-    # ② 语言比例
-    BX, BY, BW, BH = 340, 42, 260, 7
-    total = sum(d["langs"].values())
-    out.append(caption(BX, "LANGUAGES"))
-    if total:
-        top = d["langs"].most_common(5)
-        rest = total - sum(v for _, v in top)
-        if rest / total >= 0.001:
-            top.append(("Other", rest))
-        seg, x = [], BX
-        for i, (_, size) in enumerate(top):
-            w = BW * size / total
-            seg.append(f'<rect x="{x:.1f}" y="{BY}" width="{w:.1f}" height="{BH}" fill="{RAMP[i % len(RAMP)]}"/>')
-            x += w
-        out.append(f'<clipPath id="barclipT"><rect x="{BX}" y="{BY}" width="{BW}" height="{BH}" rx="{BH / 2}"/></clipPath>'
-                   f'<g clip-path="url(#barclipT)">{"".join(seg)}</g>')
-        for i, (name, size) in enumerate(top):
-            cx, cy = BX + (i % 2) * 136, 70 + (i // 2) * 18
-            out.append(fade(i, f'<circle cx="{cx + 3}" cy="{cy - 3.5}" r="3" fill="{RAMP[i % len(RAMP)]}"/>'
-                               f'<text x="{cx + 11}" y="{cy}" fill="{INK}" font-family="{SANS}" '
-                               f'font-size="11">{esc(LANG_ALIAS.get(name, name))}</text>'
-                               f'<text x="{cx + 122}" y="{cy}" fill="{MUTED}" font-family="{MONO}" '
-                               f'font-size="10" text-anchor="end">{size / total * 100:.1f}%</text>'))
-
-    # ③ 逐年贡献
-    L, R, BASE, TOP = 648, 856, 94, 44
-    out.append(caption(L, "CONTRIBUTIONS"))
-    if k:
-        out.append(caption(R, "%s total" % num(k["total"]), anchor="end", color=GOLD))
-        years = k["years"]
-        peak = max(n for _, n, _ in years) or 1
-        slot = (R - L) / len(years)
-        bw = min(24, slot - 14)
-        for i, (year, n, partial) in enumerate(years):
-            h = max(2, (BASE - TOP) * n / peak)
-            x = L + slot * i + (slot - bw) / 2
-            out.append(f'<rect x="{x:.1f}" y="{BASE - h:.1f}" width="{bw:.1f}" height="{h:.1f}" rx="2" '
-                       f'fill="{GOLD if n == peak else ORANGE}" opacity=".85">'
-                       f'<title>{year}: {n}</title></rect>'
-                       f'<text x="{x + bw / 2:.1f}" y="{BASE + 14}" fill="{MUTED}" font-family="{MONO}" '
-                       f'font-size="9.5" text-anchor="middle">{year}{"*" if partial else ""}</text>')
-        out.append(f'<rect x="{L}" y="{BASE + 1}" width="{R - L}" height="1" fill="{ORANGE}" opacity=".2"/>')
-
-    return shell(W, H, "", "\n  ".join(out), "T", label="GitHub stats")
-
-
 def pin_card(r):
     """仓库小卡：名字 + 语言 + star / fork。中文说明留在 README 里，避免 SVG 缺字体。"""
     W, H = 430, 96
@@ -348,7 +238,7 @@ def pin_card(r):
     foot, x = [], 20
     if r["lang"]:
         foot.append(f'<circle cx="{x + 4}" cy="{H - 26}" r="4.2" fill="{ORANGE}"/>'
-                    f'<text x="{x + 14}" y="{H - 22}" fill="{MUTED}" font-family="{SANS}" '
+                    f'<text x="{x + 14}" y="{H - 22}" fill="{MUTED}" font-family="{MONO}" '
                     f'font-size="11.5">{esc(r["lang"])}</text>')
         x += 14 + est(r["lang"], 11.5) + 22
     for ic, val in (("star", r["stars"]), ("fork", r["forks"])):
@@ -359,14 +249,14 @@ def pin_card(r):
         x += 18 + est(num(val), 11.5) + 24
 
     body = (f'{icon("repo", 20, 21)}'
-            f'<text x="44" y="34" fill="{GOLD}" font-family="{SANS}" font-size="{fs}" '
+            f'<text x="44" y="34" fill="{GOLD}" font-family="{MONO}" font-size="{fs}" '
             f'font-weight="600">{name}</text>'
             f'<rect x="20" y="50" width="0" height="1.4" fill="url(#ruleP)">'
             f'<animate attributeName="width" from="0" to="170" dur=".8s" begin=".15s" fill="freeze"/></rect>'
             f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur=".5s" '
             f'begin=".35s" fill="freeze"/>{"".join(foot)}</g>')
 
-    return shell(W, H, "", body, "P", label="%s — %s stars" % (r["name"], r["stars"]))
+    return shell(W, H, body, "P", "%s — %s stars" % (r["name"], r["stars"]))
 
 
 def feature_card(r):
@@ -390,9 +280,9 @@ def feature_card(r):
                f'<path d="M5.4 8.2l1.9 1.8 3.5-3.8"/></g></g>')
     out.append(f'<text x="56" y="44" fill="{ORANGE}" font-family="{MONO}" font-size="11" '
                f'letter-spacing="2">FLAGSHIP &#183; SINCE {esc(r["since"])}</text>')
-    out.append(f'<text x="30" y="90" fill="{GOLD}" font-family="{SANS}" font-size="32" '
+    out.append(f'<text x="30" y="90" fill="{GOLD}" font-family="{MONO}" font-size="32" '
                f'font-weight="700">{esc(r["name"])}</text>')
-    out.append(f'<text x="32" y="118" fill="{INK}" font-family="{SANS}" font-size="13.5">'
+    out.append(f'<text x="32" y="118" fill="{INK}" font-family="{MONO}" font-size="12.5">'
                f'{esc(FEATURE_TAGLINE)}</text>')
     out.append(f'<rect x="32" y="134" width="0" height="1.6" fill="url(#ruleF)">'
                f'<animate attributeName="width" from="0" to="280" dur=".9s" begin=".15s" fill="freeze"/></rect>')
@@ -403,9 +293,9 @@ def feature_card(r):
         w = est(name, 12) + 22
         chips.append(f'<g opacity="0"><animate attributeName="opacity" from="0" to="1" dur=".4s" '
                      f'begin="{0.45 + i * 0.07:.2f}s" fill="freeze"/>'
-                     f'<rect x="{x:.1f}" y="170" width="{w:.1f}" height="24" rx="12" fill="#2A1B33" '
+                     f'<rect x="{x:.1f}" y="170" width="{w:.1f}" height="24" rx="12" fill="{PANEL}" '
                      f'stroke="{ORANGE}" stroke-opacity=".45"/>'
-                     f'<text x="{x + w / 2:.1f}" y="186" fill="{INK}" font-family="{SANS}" font-size="12" '
+                     f'<text x="{x + w / 2:.1f}" y="186" fill="{INK}" font-family="{MONO}" font-size="12" '
                      f'text-anchor="middle">{esc(name)}</text></g>')
         x += w + 8
     out.append(f'<text x="32" y="160" fill="{MUTED}" font-family="{MONO}" font-size="10.5" '
@@ -418,7 +308,7 @@ def feature_card(r):
                f'<g transform="translate({CX - 11:.0f},38) scale(1.4)">{ICONS["star"] % GOLD}</g>'
                f'<text x="{CX:.0f}" y="114" fill="{GOLD}" font-family="{MONO}" font-size="46" '
                f'font-weight="700" text-anchor="middle">{num(r["stars"])}</text>'
-               f'<text x="{CX:.0f}" y="140" fill="{INK}" font-family="{SANS}" font-size="12" '
+               f'<text x="{CX:.0f}" y="140" fill="{INK}" font-family="{MONO}" font-size="12" '
                f'font-weight="600" letter-spacing="2.2" text-anchor="middle">STARS</text></g>')
     forks = "%s forks" % num(r["forks"])
     fw = 18 + est(forks, 12)
@@ -429,8 +319,19 @@ def feature_card(r):
                f'<text x="{fx + 18:.0f}" y="186" fill="{MUTED}" font-family="{MONO}" '
                f'font-size="12">{forks}</text></g>')
 
-    return shell(W, H, "", "\n  ".join(out), "F",
-                 label="%s — %s stars" % (r["name"], r["stars"]))
+    return shell(W, H, "\n  ".join(out), "F", "%s — %s stars" % (r["name"], r["stars"]))
+
+
+def render(data):
+    """把取到的数据画成全部 SVG，返回 [(文件名, 内容)]。"""
+    from make_hero import hero
+    from make_pacman import board, check
+
+    cards = [("hero.svg", hero(data)), ("pacman.svg", board(data["days"], data["levels"]))]
+    check(cards[1][1])
+    cards.append(("feature-%s.svg" % FEATURE, feature_card(data["feature"])))
+    cards += [("pin-%s.svg" % r["name"], pin_card(r)) for r in data["pins"]]
+    return cards
 
 
 if __name__ == "__main__":
@@ -457,11 +358,11 @@ if __name__ == "__main__":
         sys.exit("refusing to write cards: only resolved %d/%d pinned repos"
                  % (len(data["pins"]), len(PINS)))
 
+    if not data["days"]:
+        sys.exit("refusing to write cards: contribution calendar came back empty")
+
     os.makedirs(OUT, exist_ok=True)
-    cards = [("stats-strip.svg", strip_card(data))]
-    cards.append(("feature-%s.svg" % FEATURE, feature_card(data["feature"])))
-    cards += [("pin-%s.svg" % r["name"], pin_card(r)) for r in data["pins"]]
-    for fname, svg in cards:
-        with open(os.path.join(OUT, fname), "w", encoding="utf-8") as f:
+    for fname, svg in render(data):
+        with open(os.path.join(OUT, fname), "w", encoding="utf-8", newline="\n") as f:
             f.write(svg)
         print("  wrote assets/" + fname)
