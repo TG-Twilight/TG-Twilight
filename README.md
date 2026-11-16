@@ -15,8 +15,8 @@
                              与两个角色头像（现拉官方立绘裁圆）
                              → tools/make_cos_assets.py
    配色与等宽排版的公共零件在 tools/sunset.py。
-   仅剩的外部依赖：count.getloli.com 计数器、
-   r6.awads.cc 图标（你自己的服务）。
+   访问计数器走 count.awavenue.top（自托管 Cloudflare Worker）。
+   仅剩的外部依赖：r6.awads.cc 图标（你自己的服务）。
   ─────────────────────────────────────────────────────────────
 -->
 
@@ -139,7 +139,7 @@
 
 <div align="center">
 
-<img src="https://count.getloli.com/get/@TG-Twiligh?theme=booru-helltaker" alt="Profile Views" width="640"/>
+<img src="https://count.awavenue.top/get/@TG-Twilight?theme=booru-helltaker" alt="Profile Views" width="640"/>
 
 <br/><br/>
 
