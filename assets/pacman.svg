@@ -397,6 +397,7 @@
   <use href="#d" x="838" y="96" fill="#7B4B94"><animate attributeName="visibility" calcMode="discrete" values="visible;hidden" keyTimes="0;0.41967" dur="31.006s" repeatCount="indefinite"/></use>
   <use href="#d" x="838" y="111" fill="#C05299"><animate attributeName="visibility" calcMode="discrete" values="visible;hidden" keyTimes="0;0.42193" dur="31.006s" repeatCount="indefinite"/></use>
   <use href="#d" x="838" y="126" fill="#C05299"><animate attributeName="visibility" calcMode="discrete" values="visible;hidden" keyTimes="0;0.65898" dur="31.006s" repeatCount="indefinite"/></use>
+  <use href="#d" x="838" y="141" fill="#3A2745"><animate attributeName="visibility" calcMode="discrete" values="visible;hidden" keyTimes="0;0.66124" dur="31.006s" repeatCount="indefinite"/></use>
   <text x="24.00" y="31.00" fill="#9B8494" font-size="13" textLength="39.00">SCORE</text>
   <text x="70.80" y="31.00" fill="#FFD166" font-size="13" textLength="39.00" font-weight="700">00000<animate attributeName="visibility" calcMode="discrete" values="visible;hidden" keyTimes="0;0.12166" dur="31.006s" repeatCount="indefinite"/></text>
   <text x="70.80" y="31.00" fill="#FFD166" font-size="13" textLength="39.00" font-weight="700" visibility="hidden">00001<animate attributeName="visibility" calcMode="discrete" values="hidden;visible;hidden" keyTimes="0;0.12166;0.12618" dur="31.006s" repeatCount="indefinite"/></text>
